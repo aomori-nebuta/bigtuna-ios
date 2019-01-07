@@ -1,5 +1,4 @@
 */build/*
 *.pbxuser
 
-xcuserdata
-xcuserdata/*
+*/xcuserdata/*
