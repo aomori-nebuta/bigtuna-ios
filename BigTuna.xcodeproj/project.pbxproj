@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B60B21E287D400259B48 /* AppDelegate.swift */; };
-		3300B60E21E287D400259B48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B60D21E287D400259B48 /* ViewController.swift */; };
 		3300B61121E287D400259B48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3300B60F21E287D400259B48 /* Main.storyboard */; };
 		3300B61321E287D500259B48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3300B61221E287D500259B48 /* Assets.xcassets */; };
 		3300B61621E287D500259B48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3300B61421E287D500259B48 /* LaunchScreen.storyboard */; };
 		3300B62121E287D500259B48 /* BigTunaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62021E287D500259B48 /* BigTunaTests.swift */; };
 		3300B62C21E287D500259B48 /* BigTunaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62B21E287D500259B48 /* BigTunaUITests.swift */; };
+		33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */; };
+		33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */; };
+		33F73E6421E2E055007A5082 /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,6 @@
 /* Begin PBXFileReference section */
 		3300B60821E287D400259B48 /* BigTuna.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigTuna.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3300B60B21E287D400259B48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3300B60D21E287D400259B48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3300B61021E287D400259B48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3300B61221E287D500259B48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3300B61521E287D500259B48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +48,9 @@
 		3300B62721E287D500259B48 /* BigTunaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BigTunaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3300B62B21E287D500259B48 /* BigTunaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTunaUITests.swift; sourceTree = "<group>"; };
 		3300B62D21E287D500259B48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
+		33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +101,11 @@
 		3300B60A21E287D400259B48 /* BigTuna */ = {
 			isa = PBXGroup;
 			children = (
+				33F73E5E21E2DC38007A5082 /* Other Controllers */,
+				33F73E5D21E2DC2A007A5082 /* Models */,
+				33F73E5C21E2DC17007A5082 /* Views */,
+				33F73E5B21E2DBF8007A5082 /* View Controllers */,
 				3300B60B21E287D400259B48 /* AppDelegate.swift */,
-				3300B60D21E287D400259B48 /* ViewController.swift */,
 				3300B60F21E287D400259B48 /* Main.storyboard */,
 				3300B61221E287D500259B48 /* Assets.xcassets */,
 				3300B61421E287D500259B48 /* LaunchScreen.storyboard */,
@@ -123,6 +130,37 @@
 				3300B62D21E287D500259B48 /* Info.plist */,
 			);
 			path = BigTunaUITests;
+			sourceTree = "<group>";
+		};
+		33F73E5B21E2DBF8007A5082 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */,
+				33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */,
+				33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		33F73E5C21E2DC17007A5082 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		33F73E5D21E2DC2A007A5082 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		33F73E5E21E2DC38007A5082 /* Other Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Other Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +294,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3300B60E21E287D400259B48 /* ViewController.swift in Sources */,
+				33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */,
+				33F73E6421E2E055007A5082 /* BookmarksTableViewController.swift in Sources */,
+				33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */,
 				3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
