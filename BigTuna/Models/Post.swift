@@ -26,7 +26,6 @@ struct Post {
     var uploadDate: Date
     var lastEdited: Date
     
-    
 }
 
 enum PriceRange: Int {
