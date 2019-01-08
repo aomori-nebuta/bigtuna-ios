@@ -7,7 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 struct User {
+    var username: String
+    var profilePicture: UIImage
     
+    var followers: [User]
+    var posts: [Post]
+    
+    var description: String
+
 }
