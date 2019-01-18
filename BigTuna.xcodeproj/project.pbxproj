@@ -16,6 +16,9 @@
 		33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */; };
 		33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */; };
 		33F73E6421E2E055007A5082 /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */; };
+		33FEE07521E43C8400269F35 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07421E43C8400269F35 /* Post.swift */; };
+		33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07621E43F8700269F35 /* Restaurant.swift */; };
+		33FEE07921E4451700269F35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07821E4451700269F35 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
+		33FEE07421E43C8400269F35 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		33FEE07621E43F8700269F35 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		33FEE07821E4451700269F35 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +158,9 @@
 		33F73E5D21E2DC2A007A5082 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				33FEE07421E43C8400269F35 /* Post.swift */,
+				33FEE07621E43F8700269F35 /* Restaurant.swift */,
+				33FEE07821E4451700269F35 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -297,6 +306,9 @@
 				33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */,
 				33F73E6421E2E055007A5082 /* BookmarksTableViewController.swift in Sources */,
 				33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */,
+				33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */,
+				33FEE07921E4451700269F35 /* User.swift in Sources */,
+				33FEE07521E43C8400269F35 /* Post.swift in Sources */,
 				3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
