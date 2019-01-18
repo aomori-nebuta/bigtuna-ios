@@ -13,6 +13,7 @@
 		3300B61621E287D500259B48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3300B61421E287D500259B48 /* LaunchScreen.storyboard */; };
 		3300B62121E287D500259B48 /* BigTunaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62021E287D500259B48 /* BigTunaTests.swift */; };
 		3300B62C21E287D500259B48 /* BigTunaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62B21E287D500259B48 /* BigTunaUITests.swift */; };
+		333DC3CC21F16C4800873A80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333DC3CB21F16C4800873A80 /* LoginViewController.swift */; };
 		33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */; };
 		33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */; };
 		33F73E6421E2E055007A5082 /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */; };
@@ -51,6 +52,7 @@
 		3300B62721E287D500259B48 /* BigTunaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BigTunaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3300B62B21E287D500259B48 /* BigTunaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTunaUITests.swift; sourceTree = "<group>"; };
 		3300B62D21E287D500259B48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		333DC3CB21F16C4800873A80 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */,
 				33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */,
 				33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */,
+				333DC3CB21F16C4800873A80 /* LoginViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				33F73E6421E2E055007A5082 /* BookmarksTableViewController.swift in Sources */,
 				33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */,
 				33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */,
+				333DC3CC21F16C4800873A80 /* LoginViewController.swift in Sources */,
 				33FEE07921E4451700269F35 /* User.swift in Sources */,
 				33FEE07521E43C8400269F35 /* Post.swift in Sources */,
 				3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */,
