@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FC4784E5447DF2F4F1B6E91 /* Pods_BigTunaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B4814D664DE04ED6FE92DE /* Pods_BigTunaUITests.framework */; };
 		3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B60B21E287D400259B48 /* AppDelegate.swift */; };
 		3300B61121E287D400259B48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3300B60F21E287D400259B48 /* Main.storyboard */; };
 		3300B61321E287D500259B48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3300B61221E287D500259B48 /* Assets.xcassets */; };
 		3300B61621E287D500259B48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3300B61421E287D500259B48 /* LaunchScreen.storyboard */; };
 		3300B62121E287D500259B48 /* BigTunaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62021E287D500259B48 /* BigTunaTests.swift */; };
 		3300B62C21E287D500259B48 /* BigTunaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62B21E287D500259B48 /* BigTunaUITests.swift */; };
+		331B192221F6B11300CD39FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 331B192121F6B11200CD39FA /* GoogleService-Info.plist */; };
 		333DC3CC21F16C4800873A80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333DC3CB21F16C4800873A80 /* LoginViewController.swift */; };
 		33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */; };
 		33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */; };
@@ -20,6 +22,8 @@
 		33FEE07521E43C8400269F35 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07421E43C8400269F35 /* Post.swift */; };
 		33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07621E43F8700269F35 /* Restaurant.swift */; };
 		33FEE07921E4451700269F35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07821E4451700269F35 /* User.swift */; };
+		97FEF44E7A6BD8152B5374D4 /* Pods_BigTunaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C5789961E6E8EED16C1A4D /* Pods_BigTunaTests.framework */; };
+		C818F1D23040ED4321E939F4 /* Pods_BigTuna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D18FB294E020309461D4A8C /* Pods_BigTuna.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,7 @@
 		3300B62721E287D500259B48 /* BigTunaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BigTunaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3300B62B21E287D500259B48 /* BigTunaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTunaUITests.swift; sourceTree = "<group>"; };
 		3300B62D21E287D500259B48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		331B192121F6B11200CD39FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		333DC3CB21F16C4800873A80 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +64,15 @@
 		33FEE07421E43C8400269F35 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		33FEE07621E43F8700269F35 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		33FEE07821E4451700269F35 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3764974D705F09B0050470D4 /* Pods-BigTuna.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTuna.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTuna/Pods-BigTuna.release.xcconfig"; sourceTree = "<group>"; };
+		617B0164F4A05BC9BB533E2F /* Pods-BigTunaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaTests/Pods-BigTunaTests.release.xcconfig"; sourceTree = "<group>"; };
+		6D18FB294E020309461D4A8C /* Pods_BigTuna.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BigTuna.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		71C5C9668976868A1C4CD487 /* Pods-BigTunaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaUITests/Pods-BigTunaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		945E7E2698530F943D2CA2D8 /* Pods-BigTunaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaUITests/Pods-BigTunaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		98C5789961E6E8EED16C1A4D /* Pods_BigTunaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BigTunaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5ACC75425C3A8DF104E1371 /* Pods-BigTuna.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTuna.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BigTuna/Pods-BigTuna.debug.xcconfig"; sourceTree = "<group>"; };
+		B9E8EA7DD32C597A74E4E731 /* Pods-BigTunaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaTests/Pods-BigTunaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C2B4814D664DE04ED6FE92DE /* Pods_BigTunaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BigTunaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C818F1D23040ED4321E939F4 /* Pods_BigTuna.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97FEF44E7A6BD8152B5374D4 /* Pods_BigTunaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FC4784E5447DF2F4F1B6E91 /* Pods_BigTunaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +110,8 @@
 				3300B61F21E287D500259B48 /* BigTunaTests */,
 				3300B62A21E287D500259B48 /* BigTunaUITests */,
 				3300B60921E287D400259B48 /* Products */,
+				72E4EFDE83D2842FE4A2737B /* Pods */,
+				669EA643CF6632B0F5F4A29A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +137,7 @@
 				3300B61221E287D500259B48 /* Assets.xcassets */,
 				3300B61421E287D500259B48 /* LaunchScreen.storyboard */,
 				3300B61721E287D500259B48 /* Info.plist */,
+				331B192121F6B11200CD39FA /* GoogleService-Info.plist */,
 			);
 			path = BigTuna;
 			sourceTree = "<group>";
@@ -175,6 +195,29 @@
 			path = "Other Controllers";
 			sourceTree = "<group>";
 		};
+		669EA643CF6632B0F5F4A29A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D18FB294E020309461D4A8C /* Pods_BigTuna.framework */,
+				98C5789961E6E8EED16C1A4D /* Pods_BigTunaTests.framework */,
+				C2B4814D664DE04ED6FE92DE /* Pods_BigTunaUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		72E4EFDE83D2842FE4A2737B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A5ACC75425C3A8DF104E1371 /* Pods-BigTuna.debug.xcconfig */,
+				3764974D705F09B0050470D4 /* Pods-BigTuna.release.xcconfig */,
+				B9E8EA7DD32C597A74E4E731 /* Pods-BigTunaTests.debug.xcconfig */,
+				617B0164F4A05BC9BB533E2F /* Pods-BigTunaTests.release.xcconfig */,
+				945E7E2698530F943D2CA2D8 /* Pods-BigTunaUITests.debug.xcconfig */,
+				71C5C9668976868A1C4CD487 /* Pods-BigTunaUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -182,9 +225,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3300B63021E287D500259B48 /* Build configuration list for PBXNativeTarget "BigTuna" */;
 			buildPhases = (
+				F78487409FAA59D5F8D3D9C2 /* [CP] Check Pods Manifest.lock */,
 				3300B60421E287D400259B48 /* Sources */,
 				3300B60521E287D400259B48 /* Frameworks */,
 				3300B60621E287D400259B48 /* Resources */,
+				30572489F801229C2BF2F51F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -199,6 +244,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3300B63321E287D500259B48 /* Build configuration list for PBXNativeTarget "BigTunaTests" */;
 			buildPhases = (
+				F765F5AA5E7966313A9BEED5 /* [CP] Check Pods Manifest.lock */,
 				3300B61821E287D500259B48 /* Sources */,
 				3300B61921E287D500259B48 /* Frameworks */,
 				3300B61A21E287D500259B48 /* Resources */,
@@ -217,6 +263,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3300B63621E287D500259B48 /* Build configuration list for PBXNativeTarget "BigTunaUITests" */;
 			buildPhases = (
+				8B4A3B090623350FA63227A7 /* [CP] Check Pods Manifest.lock */,
 				3300B62321E287D500259B48 /* Sources */,
 				3300B62421E287D500259B48 /* Frameworks */,
 				3300B62521E287D500259B48 /* Resources */,
@@ -280,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3300B61621E287D500259B48 /* LaunchScreen.storyboard in Resources */,
+				331B192221F6B11300CD39FA /* GoogleService-Info.plist in Resources */,
 				3300B61321E287D500259B48 /* Assets.xcassets in Resources */,
 				3300B61121E287D400259B48 /* Main.storyboard in Resources */,
 			);
@@ -300,6 +348,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		30572489F801229C2BF2F51F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BigTuna/Pods-BigTuna-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BigTuna/Pods-BigTuna-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B4A3B090623350FA63227A7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BigTunaUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F765F5AA5E7966313A9BEED5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BigTunaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F78487409FAA59D5F8D3D9C2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BigTuna-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3300B60421E287D400259B48 /* Sources */ = {
@@ -486,6 +627,7 @@
 		};
 		3300B63121E287D500259B48 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5ACC75425C3A8DF104E1371 /* Pods-BigTuna.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -506,6 +648,7 @@
 		};
 		3300B63221E287D500259B48 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3764974D705F09B0050470D4 /* Pods-BigTuna.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -526,6 +669,7 @@
 		};
 		3300B63421E287D500259B48 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9E8EA7DD32C597A74E4E731 /* Pods-BigTunaTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -547,6 +691,7 @@
 		};
 		3300B63521E287D500259B48 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 617B0164F4A05BC9BB533E2F /* Pods-BigTunaTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -568,6 +713,7 @@
 		};
 		3300B63721E287D500259B48 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 945E7E2698530F943D2CA2D8 /* Pods-BigTunaUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -588,6 +734,7 @@
 		};
 		3300B63821E287D500259B48 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C5C9668976868A1C4CD487 /* Pods-BigTunaUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
