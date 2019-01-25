@@ -7,6 +7,7 @@ target 'BigTuna' do
 
   # Pods for BigTuna
   pod 'Firebase/Core'
+  pod 'Firebase/Auth'
 
   target 'BigTunaTests' do
     inherit! :search_paths
