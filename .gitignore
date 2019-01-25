@@ -1,7 +1,7 @@
 */build/*
 *.pbxuser
 
-*xcuserdata/
+*xcuserdata*
 
 Pods/*
 */GoogleService-Info.plist
