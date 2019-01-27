@@ -11,14 +11,19 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var loginSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var signInView: UIView!
-    @IBOutlet weak var signUpView: UIView!
+
+    @IBOutlet weak var errorMessageView: UIView!
     
+    @IBOutlet weak var signInView: UIView!
+    
+    // Sign-up UI Objects
+    @IBOutlet weak var signUpView: UIView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
+    @IBOutlet weak var errorMessage: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +37,8 @@ class LoginViewController: UIViewController {
     }
     
     func updateUI() {
+        errorMessageView.isHidden = true
+
         switch(loginSegmentedControl.selectedSegmentIndex) {
         case 0:
             signInView.isHidden = false
@@ -43,12 +50,11 @@ class LoginViewController: UIViewController {
             break;
         }
     }
-    
-    @IBAction func signUp() {
-        guard let username = usernameTextField.text,
-        let email = emailTextField.text,
-        let password = passwordTextField.text,
-            let confirmPassword = confirmPasswordTextField.text else {
+    @IBAction func signUpButtonPressed(_ sender: UIButton) {
+        guard let _ = usernameTextField.text,
+            let email = emailTextField.text,
+            let password = passwordTextField.text,
+            let _ = confirmPasswordTextField.text else {
                 // TODO: Display message to user
                 print("Did not save user!")
                 return
@@ -58,19 +64,27 @@ class LoginViewController: UIViewController {
 
         Auth.auth().createUser(withEmail: email, password: password) {
             (authResult, error) in
-            guard let user = authResult?.user else { return }
+            if let error = error {
+                self.errorMessageView.isHidden = false
+                self.errorMessage.text = error.localizedDescription
+                return
+            } else {
+                guard let user = authResult?.user else { return }
+                self.performSegue(withIdentifier: "LoginSegue", sender: sender)
+            }
+            
         }
-        
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        guard let _ = segue.destination as? UITabBarController else { return }
+        
     }
-    */
+
 
 }
