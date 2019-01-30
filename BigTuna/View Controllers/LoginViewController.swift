@@ -13,20 +13,24 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginSegmentedControl: UISegmentedControl!
 
     @IBOutlet weak var errorMessageView: UIView!
-    
+
+    // Sign-in UI Objects
     @IBOutlet weak var signInView: UIView!
-    
+    @IBOutlet weak var signInEmailTextField: UITextField!
+    @IBOutlet weak var signInPasswordTextField: UITextField!
+
     // Sign-up UI Objects
     @IBOutlet weak var signUpView: UIView!
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var confirmPasswordTextField: UITextField!
-    
+    @IBOutlet weak var signUpUsernameTextField: UITextField!
+    @IBOutlet weak var signUpEmailTextField: UITextField!
+    @IBOutlet weak var signUpPasswordTextField: UITextField!
+    @IBOutlet weak var signUpConfirmPasswordTextField: UITextField!
+
     @IBOutlet weak var errorMessage: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bluebubbles")!)
 
         // Do any additional setup after loading the view.
         updateUI()
@@ -37,7 +41,7 @@ class LoginViewController: UIViewController {
     }
     
     func updateUI() {
-        errorMessageView.isHidden = true
+//        errorMessageView.isHidden = true
 
         switch(loginSegmentedControl.selectedSegmentIndex) {
         case 0:
@@ -50,13 +54,33 @@ class LoginViewController: UIViewController {
             break;
         }
     }
+    
+    
+    @IBAction func signInButtonPressed(_ sender: UIButton) {
+        guard let email = signInEmailTextField.text,
+            let password = signInPasswordTextField.text else {
+                self.displayErrorWithMessage(error: "Please enter all fields.")
+                return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) {
+            (user, error) in
+            if let error = error {
+                self.displayErrorWithMessage(error: error.localizedDescription)
+                return
+            } else {
+                guard let user = user else { return }
+                self.performSegue(withIdentifier: "SignInSegue", sender: sender)
+            }
+        }
+    }
+    
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
-        guard let _ = usernameTextField.text,
-            let email = emailTextField.text,
-            let password = passwordTextField.text,
-            let _ = confirmPasswordTextField.text else {
-                // TODO: Display message to user
-                print("Did not save user!")
+        guard let _ = signUpUsernameTextField.text,
+            let email = signUpEmailTextField.text,
+            let password = signUpPasswordTextField.text,
+            let _ = signUpConfirmPasswordTextField.text else {
+                self.displayErrorWithMessage(error: "Please enter all fields.")
                 return
         }
         
@@ -65,15 +89,19 @@ class LoginViewController: UIViewController {
         Auth.auth().createUser(withEmail: email, password: password) {
             (authResult, error) in
             if let error = error {
-                self.errorMessageView.isHidden = false
-                self.errorMessage.text = error.localizedDescription
+                self.displayErrorWithMessage(error: error.localizedDescription)
                 return
             } else {
                 guard let user = authResult?.user else { return }
-                self.performSegue(withIdentifier: "LoginSegue", sender: sender)
+                self.performSegue(withIdentifier: "SignUpSegue", sender: sender)
             }
             
         }
+    }
+    
+    func displayErrorWithMessage(error: String) {
+        self.errorMessageView.isHidden = false
+        self.errorMessage.text = error
     }
     
     // MARK: - Navigation
