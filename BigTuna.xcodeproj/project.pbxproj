@@ -14,11 +14,12 @@
 		3300B62121E287D500259B48 /* BigTunaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62021E287D500259B48 /* BigTunaTests.swift */; };
 		3300B62C21E287D500259B48 /* BigTunaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62B21E287D500259B48 /* BigTunaUITests.swift */; };
 		33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */; };
-		33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */; };
-		33F73E6421E2E055007A5082 /* BookmarksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */; };
 		33FEE07521E43C8400269F35 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07421E43C8400269F35 /* Post.swift */; };
 		33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07621E43F8700269F35 /* Restaurant.swift */; };
 		33FEE07921E4451700269F35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07821E4451700269F35 /* User.swift */; };
+		6352295E220FC22400CADE35 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352295D220FC22400CADE35 /* CameraViewController.swift */; };
+		63522960220FFB0500CADE35 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352295F220FFB0500CADE35 /* ProfileViewController.swift */; };
+		6352296222100C9F00CADE35 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352296122100C9F00CADE35 /* DiscoverViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,11 +53,12 @@
 		3300B62B21E287D500259B48 /* BigTunaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTunaUITests.swift; sourceTree = "<group>"; };
 		3300B62D21E287D500259B48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
-		33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTableViewController.swift; sourceTree = "<group>"; };
 		33FEE07421E43C8400269F35 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		33FEE07621E43F8700269F35 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		33FEE07821E4451700269F35 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6352295D220FC22400CADE35 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		6352295F220FFB0500CADE35 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		6352296122100C9F00CADE35 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,8 +144,9 @@
 			isa = PBXGroup;
 			children = (
 				33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */,
-				33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */,
-				33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */,
+				6352295D220FC22400CADE35 /* CameraViewController.swift */,
+				6352295F220FFB0500CADE35 /* ProfileViewController.swift */,
+				6352296122100C9F00CADE35 /* DiscoverViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -304,11 +307,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */,
-				33F73E6421E2E055007A5082 /* BookmarksTableViewController.swift in Sources */,
-				33F73E6221E2DF97007A5082 /* FeedTableViewController.swift in Sources */,
 				33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */,
 				33FEE07921E4451700269F35 /* User.swift in Sources */,
+				6352295E220FC22400CADE35 /* CameraViewController.swift in Sources */,
 				33FEE07521E43C8400269F35 /* Post.swift in Sources */,
+				6352296222100C9F00CADE35 /* DiscoverViewController.swift in Sources */,
+				63522960220FFB0500CADE35 /* ProfileViewController.swift in Sources */,
 				3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
