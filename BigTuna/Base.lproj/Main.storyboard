@@ -10,7 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-<<<<<<< HEAD
         <!--Camera-->
         <scene sceneID="bMe-1l-9Tf">
             <objects>
@@ -63,37 +62,19 @@
                     <tabBarItem key="tabBarItem" title="Bookmarks" id="GfU-uV-t85"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rm9-77-DjZ">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-=======
-        <!--Main Tab Bar Controller-->
-        <scene sceneID="lzb-df-x7u">
-            <objects>
-                <tabBarController storyboardIdentifier="MainTabBarController" id="T5L-nQ-sqe" customClass="MainTabBarController" customModule="BigTuna" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AOT-M1-ZfC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
->>>>>>> master
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                <color key="value" red="0.55294117649999996" green="0.73725490199999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </tabBar>
+                    </navigationBar>
                     <connections>
-                        <segue destination="EHh-Hv-5Rj" kind="relationship" relationship="viewControllers" id="cuC-Xh-HqC"/>
-                        <segue destination="vZS-yF-piU" kind="relationship" relationship="viewControllers" id="p17-Jh-2eP"/>
-                        <segue destination="SdC-9A-IEb" kind="relationship" relationship="viewControllers" id="h5W-bY-yee"/>
+                        <segue destination="xPG-xQ-BwO" kind="relationship" relationship="rootViewController" id="VWL-kJ-A36"/>
                     </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8ra-WO-SeP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ffJ-IJ-TQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3650" y="824"/>
+            <point key="canvasLocation" x="-743" y="1856"/>
         </scene>
-        <!--Camera View Controller-->
-        <scene sceneID="6M5-k5-jSR">
+        <!--Root View Controller-->
+        <scene sceneID="tUb-1a-wyH">
             <objects>
-<<<<<<< HEAD
                 <tableViewController id="JiH-tf-sN2" customClass="FeedTableViewController" customModule="BigTuna" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="P36-pd-hIS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -134,68 +115,37 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HFG-kc-dQ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-=======
-                <viewController storyboardIdentifier="CameraViewController" id="vZS-yF-piU" customClass="CameraViewController" customModule="BigTuna" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zCp-Q6-fZK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="WOK-ol-W2M"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="CameraTabIcon" id="ZHm-d6-zau">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gyh-C6-62a" userLabel="First Responder" sceneMemberID="firstResponder"/>
->>>>>>> master
             </objects>
-            <point key="canvasLocation" x="-2658" y="791"/>
+            <point key="canvasLocation" x="-743" y="252"/>
         </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="LOM-Ea-lN8">
+        <!--Profile-->
+        <scene sceneID="Pe3-N5-yPI">
             <objects>
-<<<<<<< HEAD
                 <viewController id="q0X-63-417" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jd6-JT-neJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-=======
-                <viewController storyboardIdentifier="ProfileViewController" id="SdC-9A-IEb" customClass="ProfileViewController" customModule="BigTuna" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kDV-9D-wO7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
->>>>>>> master
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="CXk-G1-J3L"/>
+                        <viewLayoutGuide key="safeArea" id="gvt-RH-qGK"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="ProfileTabIcon" id="3xi-JT-r6d">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Profile" id="lNo-Ly-bIE"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7wi-Z2-074" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c88-54-Yos" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2656" y="1628"/>
+            <point key="canvasLocation" x="-743" y="2818"/>
         </scene>
-        <!--Discover View Controller-->
-        <scene sceneID="ujQ-sM-pke">
+        <!--Location-->
+        <scene sceneID="pLp-oi-Yzy">
             <objects>
-<<<<<<< HEAD
                 <viewController id="LUB-yU-LTF" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Aab-AN-G0o">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-=======
-                <viewController storyboardIdentifier="DiscoverViewController" id="EHh-Hv-5Rj" customClass="DiscoverViewController" customModule="BigTuna" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="EBY-e9-k3Q">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
->>>>>>> master
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="FIV-s9-C2N"/>
+                        <viewLayoutGuide key="safeArea" id="biW-d0-9oA"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="DiscoverTabIcon" id="SXH-QK-HFm">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Location" id="Dau-Zd-TgR"/>
                 </viewController>
-<<<<<<< HEAD
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jia-2d-Y8t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-743" y="-480"/>
@@ -412,24 +362,14 @@
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ra-WO-SeP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-=======
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7Jr-Yg-idN" userLabel="First Responder" sceneMemberID="firstResponder"/>
->>>>>>> master
             </objects>
-            <point key="canvasLocation" x="-2657" y="-1"/>
+            <point key="canvasLocation" x="-3674" y="905"/>
         </scene>
     </scenes>
     <resources>
-<<<<<<< HEAD
         <image name="bigtunalogo2" width="750" height="281.25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="h8N-II-WHH"/>
     </inferredMetricsTieBreakers>
-=======
-        <image name="CameraTabIcon" width="25" height="25"/>
-        <image name="DiscoverTabIcon" width="25" height="25"/>
-        <image name="ProfileTabIcon" width="25" height="25"/>
-    </resources>
->>>>>>> master
 </document>
