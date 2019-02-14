@@ -20,11 +20,11 @@
 		33FEE07521E43C8400269F35 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07421E43C8400269F35 /* Post.swift */; };
 		33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07621E43F8700269F35 /* Restaurant.swift */; };
 		33FEE07921E4451700269F35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07821E4451700269F35 /* User.swift */; };
-		97FEF44E7A6BD8152B5374D4 /* Pods_BigTunaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C5789961E6E8EED16C1A4D /* Pods_BigTunaTests.framework */; };
-		C818F1D23040ED4321E939F4 /* Pods_BigTuna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D18FB294E020309461D4A8C /* Pods_BigTuna.framework */; };
 		6352295E220FC22400CADE35 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352295D220FC22400CADE35 /* CameraViewController.swift */; };
 		63522960220FFB0500CADE35 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352295F220FFB0500CADE35 /* ProfileViewController.swift */; };
 		6352296222100C9F00CADE35 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352296122100C9F00CADE35 /* DiscoverViewController.swift */; };
+		97FEF44E7A6BD8152B5374D4 /* Pods_BigTunaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C5789961E6E8EED16C1A4D /* Pods_BigTunaTests.framework */; };
+		C818F1D23040ED4321E939F4 /* Pods_BigTuna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D18FB294E020309461D4A8C /* Pods_BigTuna.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +65,9 @@
 		33FEE07821E4451700269F35 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3764974D705F09B0050470D4 /* Pods-BigTuna.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTuna.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTuna/Pods-BigTuna.release.xcconfig"; sourceTree = "<group>"; };
 		617B0164F4A05BC9BB533E2F /* Pods-BigTunaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaTests/Pods-BigTunaTests.release.xcconfig"; sourceTree = "<group>"; };
+		6352295D220FC22400CADE35 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		6352295F220FFB0500CADE35 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		6352296122100C9F00CADE35 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		6D18FB294E020309461D4A8C /* Pods_BigTuna.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BigTuna.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71C5C9668976868A1C4CD487 /* Pods-BigTunaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaUITests/Pods-BigTunaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		945E7E2698530F943D2CA2D8 /* Pods-BigTunaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaUITests/Pods-BigTunaUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -72,9 +75,6 @@
 		A5ACC75425C3A8DF104E1371 /* Pods-BigTuna.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTuna.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BigTuna/Pods-BigTuna.debug.xcconfig"; sourceTree = "<group>"; };
 		B9E8EA7DD32C597A74E4E731 /* Pods-BigTunaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaTests/Pods-BigTunaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C2B4814D664DE04ED6FE92DE /* Pods_BigTunaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BigTunaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6352295D220FC22400CADE35 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		6352295F220FFB0500CADE35 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		6352296122100C9F00CADE35 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,8 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */,
-				33F73E6121E2DF97007A5082 /* FeedTableViewController.swift */,
-				33F73E6321E2E055007A5082 /* BookmarksTableViewController.swift */,
 				333DC3CB21F16C4800873A80 /* LoginViewController.swift */,
 				6352295D220FC22400CADE35 /* CameraViewController.swift */,
 				6352295F220FFB0500CADE35 /* ProfileViewController.swift */,

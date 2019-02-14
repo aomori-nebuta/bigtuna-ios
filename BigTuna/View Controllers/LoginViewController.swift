@@ -27,6 +27,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUpConfirmPasswordTextField: UITextField!
 
     @IBOutlet weak var errorMessage: UILabel!
+    
+    struct Errors {
+        static let missingFields: String = "Please enter all fields."
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +63,7 @@ class LoginViewController: UIViewController {
     @IBAction func signInButtonPressed(_ sender: UIButton) {
         guard let email = signInEmailTextField.text,
             let password = signInPasswordTextField.text else {
-                self.displayErrorWithMessage(error: "Please enter all fields.")
+                self.displayErrorWithMessage(error: Errors.missingFields)
                 return
         }
         
@@ -80,7 +84,7 @@ class LoginViewController: UIViewController {
             let email = signUpEmailTextField.text,
             let password = signUpPasswordTextField.text,
             let _ = signUpConfirmPasswordTextField.text else {
-                self.displayErrorWithMessage(error: "Please enter all fields.")
+                self.displayErrorWithMessage(error: Errors.missingFields)
                 return
         }
         
