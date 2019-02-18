@@ -169,7 +169,7 @@
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VO1-19-plc">
                                                         <rect key="frame" x="0.0" y="185.66666666666669" width="254" height="42.333333333333343"/>
-                                                        <state key="normal" title="sign upp"/>
+                                                        <state key="normal" title="sign up"/>
                                                         <connections>
                                                             <action selector="signUpButtonPressed:" destination="n33-bU-Ild" eventType="touchUpInside" id="m47-3n-0Qu"/>
                                                         </connections>
