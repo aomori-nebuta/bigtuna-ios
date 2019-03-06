@@ -7,16 +7,58 @@
 //
 
 import UIKit
+import AVFoundation
 
-class CameraViewController: UIViewController {
+enum CameraOptions {
+    case Camera
+    case CameraRoll
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    var imagePicker : UIImagePickerController = UIImagePickerController()
 
-        // Do any additional setup after loading the view.
+    init(cameraSelection: CameraOptions) {
+        super.init(nibName: nil, bundle: nil)
+        
+        imagePicker.delegate = self
+        if (cameraSelection == CameraOptions.Camera) {
+            self.imagePicker.sourceType = .camera
+        }
     }
     
-
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.addSubview(imagePicker.view)
+        self.addChild(imagePicker)
+        
+        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.notDetermined {
+            
+            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (videoGranted: Bool) -> Void in
+                
+                // User clicked ok
+                if (videoGranted) {
+                    
+                    // User clicked don't allow
+                } else {
+                    self.imagePicker.dismiss(animated: true, completion: nil)
+                }
+            })
+        }
+    }
+    
+    func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+        // check if an image was selected,
+        // since a images are not the only media type that can be selected
+        if let img = info[.originalImage] {
+            methodToPassImageToViewController(img)
+    }
+    
     /*
     // MARK: - Navigation
 
