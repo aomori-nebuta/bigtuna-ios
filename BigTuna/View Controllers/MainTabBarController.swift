@@ -65,7 +65,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         switch status {
         case .authorized, .notDetermined:
             // Camera permission is handled in CameraViewController
-            let cameraViewController: UIViewController = CameraViewController(cameraSelection: CameraOptions.Camera)
+            let cameraViewController = CameraViewController(cameraSelection: CameraOptions.Camera)
             self.present(cameraViewController, animated: true, completion: nil)
         default:
             showAlertForSettings()

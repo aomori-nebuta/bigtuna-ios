@@ -42,10 +42,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (videoGranted: Bool) -> Void in
                 
                 // User clicked ok
-                if (videoGranted) {
-                    
-                    // User clicked don't allow
-                } else {
+                if (!videoGranted) {
                     self.imagePicker.dismiss(animated: true, completion: nil)
                 }
             })
@@ -55,8 +52,16 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     func imagePickerController (_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         // check if an image was selected,
         // since a images are not the only media type that can be selected
-        if let img = info[.originalImage] {
-            methodToPassImageToViewController(img)
+        if let img = info[.originalImage] as? UIImage {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let editImageViewController = storyboard.instantiateViewController(withIdentifier: "EditImageViewController") as! EditImageViewController
+            self.present(editImageViewController, animated: true, completion: {
+                editImageViewController.image.image = img
+                picker.view.removeFromSuperview()
+                picker.removeFromParent()
+            });
+//            methodToPassImageToViewController(img)
+        }
     }
     
     /*
