@@ -42,24 +42,6 @@
                     <view key="view" contentMode="scaleToFill" id="zCp-Q6-fZK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="WOK-ol-W2M"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="CameraTabIcon" id="ZHm-d6-zau">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gyh-C6-62a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2658" y="791"/>
-        </scene>
-        <!--Edit Image View Controller-->
-        <scene sceneID="ek1-OE-1tF">
-            <objects>
-                <viewController storyboardIdentifier="EditImageViewController" id="TcV-xn-neG" customClass="EditImageViewController" customModule="BigTuna" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mst-cA-pdF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D2z-gJ-twt">
                                 <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -77,16 +59,19 @@
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="UeK-OL-4Cl"/>
+                        <viewLayoutGuide key="safeArea" id="WOK-ol-W2M"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="CameraTabIcon" id="ZHm-d6-zau">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <connections>
-                        <outlet property="image" destination="LUj-rG-18q" id="BLJ-uV-MyV"/>
-                        <outlet property="navItems" destination="Je5-Em-LDh" id="Dd6-NA-mcN"/>
+                        <outlet property="displayImage" destination="LUj-rG-18q" id="M5h-dA-f6d"/>
+                        <outlet property="navItems" destination="Je5-Em-LDh" id="Hhw-I2-iQZ"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ywm-X9-brM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gyh-C6-62a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1752.1739130434785" y="785.86956521739137"/>
+            <point key="canvasLocation" x="-2658" y="791"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="LOM-Ea-lN8">

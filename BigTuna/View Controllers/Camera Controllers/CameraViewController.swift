@@ -16,23 +16,19 @@ enum CameraOptions {
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var imagePicker : UIImagePickerController = UIImagePickerController()
-
-    init(cameraSelection: CameraOptions) {
-        super.init(nibName: nil, bundle: nil)
-        
+    @IBOutlet weak var displayImage: UIImageView!
+    @IBOutlet weak var navItems: UINavigationItem!
+    
+    var imagePicker: UIImagePickerController = UIImagePickerController()
+    var cameraSelection: CameraOptions!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+                
         imagePicker.delegate = self
         if (cameraSelection == CameraOptions.Camera) {
             self.imagePicker.sourceType = .camera
         }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
         self.view.addSubview(imagePicker.view)
         self.addChild(imagePicker)
@@ -53,15 +49,15 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         // check if an image was selected,
         // since a images are not the only media type that can be selected
         if let img = info[.originalImage] as? UIImage {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let editImageViewController = storyboard.instantiateViewController(withIdentifier: "EditImageViewController") as! EditImageViewController
-            self.present(editImageViewController, animated: true, completion: {
-                editImageViewController.image.image = img
-                picker.view.removeFromSuperview()
-                picker.removeFromParent()
-            });
-//            methodToPassImageToViewController(img)
+            self.displayImage.image = img
+            self.navItems.leftBarButtonItem?.action = #selector(closeView(sender:))
+            picker.view.removeFromSuperview()
+            picker.removeFromParent()
         }
+    }
+    
+    @objc func closeView(sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
     /*

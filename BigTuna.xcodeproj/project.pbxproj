@@ -20,7 +20,6 @@
 		33FEE07521E43C8400269F35 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07421E43C8400269F35 /* Post.swift */; };
 		33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07621E43F8700269F35 /* Restaurant.swift */; };
 		33FEE07921E4451700269F35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07821E4451700269F35 /* User.swift */; };
-		6336EB76222F9A7D00996DE5 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6336EB75222F9A7D00996DE5 /* EditImageViewController.swift */; };
 		6352295E220FC22400CADE35 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352295D220FC22400CADE35 /* CameraViewController.swift */; };
 		63522960220FFB0500CADE35 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352295F220FFB0500CADE35 /* ProfileViewController.swift */; };
 		6352296222100C9F00CADE35 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352296122100C9F00CADE35 /* DiscoverViewController.swift */; };
@@ -66,7 +65,6 @@
 		33FEE07821E4451700269F35 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3764974D705F09B0050470D4 /* Pods-BigTuna.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTuna.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTuna/Pods-BigTuna.release.xcconfig"; sourceTree = "<group>"; };
 		617B0164F4A05BC9BB533E2F /* Pods-BigTunaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaTests/Pods-BigTunaTests.release.xcconfig"; sourceTree = "<group>"; };
-		6336EB75222F9A7D00996DE5 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
 		6352295D220FC22400CADE35 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		6352295F220FFB0500CADE35 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		6352296122100C9F00CADE35 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				6352295D220FC22400CADE35 /* CameraViewController.swift */,
-				6336EB75222F9A7D00996DE5 /* EditImageViewController.swift */,
 			);
 			path = "Camera Controllers";
 			sourceTree = "<group>";
@@ -471,7 +468,6 @@
 				33FEE07521E43C8400269F35 /* Post.swift in Sources */,
 				6352296222100C9F00CADE35 /* DiscoverViewController.swift in Sources */,
 				63522960220FFB0500CADE35 /* ProfileViewController.swift in Sources */,
-				6336EB76222F9A7D00996DE5 /* EditImageViewController.swift in Sources */,
 				3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
