@@ -28,7 +28,7 @@
                     <connections>
                         <segue destination="EHh-Hv-5Rj" kind="relationship" relationship="viewControllers" id="cuC-Xh-HqC"/>
                         <segue destination="vZS-yF-piU" kind="relationship" relationship="viewControllers" id="p17-Jh-2eP"/>
-                        <segue destination="SdC-9A-IEb" kind="relationship" relationship="viewControllers" id="h5W-bY-yee"/>
+                        <segue destination="AXh-Cp-h6D" kind="relationship" relationship="viewControllers" id="ChC-e4-dYx"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ra-WO-SeP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -52,24 +52,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gyh-C6-62a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2658" y="791"/>
-        </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="LOM-Ea-lN8">
-            <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="SdC-9A-IEb" customClass="ProfileViewController" customModule="BigTuna" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kDV-9D-wO7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="CXk-G1-J3L"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="ProfileTabIcon" id="3xi-JT-r6d">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7wi-Z2-074" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2656" y="1628"/>
         </scene>
         <!--Discover View Controller-->
         <scene sceneID="ujQ-sM-pke">
@@ -282,6 +264,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TMp-g2-WeK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4564" y="904"/>
+        </scene>
+        <!--ProfileViewController-->
+        <scene sceneID="fGd-0V-ORn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProfileView" referencedIdentifier="ProfileViewController" id="AXh-Cp-h6D" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="ProfileTabIcon" selectedImage="ProfileTabIcon" id="ENS-cL-4iL"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d1v-53-aN8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2810" y="1264"/>
         </scene>
     </scenes>
     <resources>
