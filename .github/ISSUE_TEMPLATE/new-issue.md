@@ -1,12 +1,3 @@
----
-name: New Issue
-about: Describe this issue's purpose here.
-title: ''
-labels: ''
-assignees: ''
-
----
-
 ## Problem Statement Here
 <!-- Create Toast -->
 
