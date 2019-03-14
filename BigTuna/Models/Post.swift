@@ -12,20 +12,32 @@ import UIKit
 struct Post {
     var uploader: User
     var recommended: Bool
-    var postImage: UIImage
+    var postImageLink: URL?
     
-    var priceRange: PriceRange
+    var priceRange: PriceRange?
     
-    var menuItems: [String]
-    var tags: [String]
+    var menuItems: Array<String>
+    var tags: Array<String>
     
-    var rating: Rating
+    var rating: Rating?
     
-    var comment: String
+    var description: String
     
-    var uploadDate: Date
-    var lastEdited: Date
+    var uploadDate: Date?
+    var lastEdited: Date?
     
+    init(uploader: User, recommended: Bool, postImageLink: URL?, priceRange: PriceRange?, menuItems: Array<String>, tags: Array<String>, rating: Rating?, description: String, uploadDate: Date?, lastEdited: Date?) {
+        self.uploader = uploader;
+        self.recommended = recommended;
+        self.postImageLink = postImageLink!;
+        self.priceRange = priceRange;
+        self.menuItems = menuItems;
+        self.tags = tags;
+        self.rating = rating;
+        self.description = description;
+        self.uploadDate = uploadDate;
+        self.lastEdited = lastEdited;
+    }
 }
 
 enum PriceRange: Int {

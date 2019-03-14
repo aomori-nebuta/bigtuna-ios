@@ -9,6 +9,7 @@ target 'BigTuna' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Alamofire'
+  pod 'Kingfisher'
 
   target 'BigTunaTests' do
     inherit! :search_paths

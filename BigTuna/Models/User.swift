@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 struct User {
-    var username: String
+    var userName: String
+    var fullName: String
+    
     var profilePicture: UIImage
     
     var followers: [User]
