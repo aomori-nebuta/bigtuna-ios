@@ -1,3 +1,9 @@
+---
+name: New Issue
+about: Describe this issue's purpose here.
+
+---
+
 ## Problem Statement Here
 <!-- Create Toast -->
 
