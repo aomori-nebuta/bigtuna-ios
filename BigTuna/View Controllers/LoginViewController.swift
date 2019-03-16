@@ -10,23 +10,6 @@ import UIKit
 import FirebaseAuth
 
 class LoginViewController: UIViewController {
-    @IBOutlet weak var loginSegmentedControl: UISegmentedControl!
-
-    @IBOutlet weak var errorMessageView: UIView!
-
-    // Sign-in UI Objects
-    @IBOutlet weak var signInView: UIView!
-    @IBOutlet weak var signInEmailTextField: UITextField!
-    @IBOutlet weak var signInPasswordTextField: UITextField!
-
-    // Sign-up UI Objects
-    @IBOutlet weak var signUpView: UIView!
-    @IBOutlet weak var signUpUsernameTextField: UITextField!
-    @IBOutlet weak var signUpEmailTextField: UITextField!
-    @IBOutlet weak var signUpPasswordTextField: UITextField!
-    @IBOutlet weak var signUpConfirmPasswordTextField: UITextField!
-
-    @IBOutlet weak var errorMessage: UILabel!
     
     struct Errors {
         static let missingFields: String = "Please enter all fields."
@@ -36,14 +19,13 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bluebubbles")!)
-        
-        updateUI()
+        setupLayout()
+
 
         // Observers that listen for keyboard change events
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     deinit {
@@ -53,100 +35,159 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
-    @IBAction func updateLoginSegmentedControl(_ sender: UISegmentedControl) {
-        updateUI()
-    }
-    
-    func updateUI() {
-//        errorMessageView.isHidden = true
-
-        switch(loginSegmentedControl.selectedSegmentIndex) {
-        case 0:
-            signInView.isHidden = false
-            signUpView.isHidden = true
-        case 1:
-            signUpView.isHidden = false
-            signInView.isHidden = true
-        default:
-            break;
-        }
-    }
-    
-    
-    @IBAction func signInButtonPressed(_ sender: UIButton) {
-        guard let email = signInEmailTextField.text,
-            let password = signInPasswordTextField.text else {
-                self.displayErrorWithMessage(error: Errors.missingFields)
-                return
-        }
+    func setupLayout() {
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bluebubbles")!)
         
-        Auth.auth().signIn(withEmail: email, password: password) {
-            (user, error) in
-            if let error = error {
-                self.displayErrorWithMessage(error: error.localizedDescription)
-                return
-            } else {
-                guard let user = user else { return }
-                self.performSegue(withIdentifier: "SignInSegue", sender: sender)
-            }
-        }
-    }
-    
-    @IBAction func signUpButtonPressed(_ sender: UIButton) {
-        guard let _ = signUpUsernameTextField.text,
-            let email = signUpEmailTextField.text,
-            let password = signUpPasswordTextField.text,
-            let _ = signUpConfirmPasswordTextField.text else {
-                self.displayErrorWithMessage(error: Errors.missingFields)
-                return
-        }
-        
-        // TODO: Validate password here...
-
-        Auth.auth().createUser(withEmail: email, password: password) {
-            (authResult, error) in
-            if let error = error {
-                self.displayErrorWithMessage(error: error.localizedDescription)
-                return
-            } else {
-                guard let user = authResult?.user else { return }
-                self.performSegue(withIdentifier: "SignUpSegue", sender: sender)
-            }
+        let imageContainer: UIView = {
+            // Image
+            let image = UIImage(named: "bigtunalogo2")
+            let imageView = UIImageView()
+            imageView.image = image
+            imageView.contentMode = .scaleAspectFit
             
-        }
-    }
-    
-    @objc func keyboardWillChange(notification: Notification) {
-        print("Key board will show: \(notification.name.rawValue)")
+            let container = UIView()
+            container.backgroundColor = .blue
+            container.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(imageView)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.5).isActive = true
+            imageView.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.5).isActive = true
+            imageView.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
+            imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+            
+            return container
+        }()
         
-        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue  else {
-                return
-        }
-        
-        // Moves keyboard up
-        if notification.name == UIResponder.keyboardWillShowNotification ||
-            notification.name == UIResponder.keyboardWillChangeFrameNotification {
-            view.frame.origin.y = -keyboardRect.height
-        } else {
-            // Moves keyboard back to origin
-            view.frame.origin.y = 0;
-        }
-    }
-    
-    func displayErrorWithMessage(error: String) {
-        self.errorMessageView.isHidden = false
-        self.errorMessage.text = error
-    }
-    
-    // MARK: - Navigation
+        let inputContainer: UIView = {
+            let container = UIView()
+            container.backgroundColor = .yellow
+            container.translatesAutoresizingMaskIntoConstraints = false
+            
+            let segmentedControl = UISegmentedControl(items: ["sign in", "sign up"])
+            container.addSubview(segmentedControl)
+            segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+            segmentedControl.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true;
+            segmentedControl.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.3).isActive = true;
+            segmentedControl.topAnchor.constraint(equalTo: container.topAnchor).isActive = true;
+            
+            // 'sign in' is initially selected
+            segmentedControl.selectedSegmentIndex = 0
+            
+            let signInTextFieldContainer: UIView = {
+                let signInContainer = UIView()
+                signInContainer.translatesAutoresizingMaskIntoConstraints = false
+                
+                let signInStackView: UIStackView = {
+                    let emailTextField = UITextField(frame: CGRect(x: 0, y: 0, width: signInContainer.frame.width, height: signInContainer.frame.height * 0.10))
+                    emailTextField.translatesAutoresizingMaskIntoConstraints = false
+                    emailTextField.placeholder = "email"
+                    emailTextField.backgroundColor = .white
+                    emailTextField.borderStyle = .roundedRect
+                    emailTextField.textAlignment = .left
+                    
+                    let signInStack = UIStackView(arrangedSubviews: [emailTextField])
+                    signInStack.axis = .vertical
+                    signInStack.distribution = .fillEqually
+                    signInStack.alignment = .center
+                    
+                    emailTextField.leadingAnchor.constraint(equalTo: signInStack.leadingAnchor).isActive = true
+                    
+                    emailTextField.trailingAnchor.constraint(equalTo: signInStack.trailingAnchor).isActive = true
+                    
+                    signInStack.translatesAutoresizingMaskIntoConstraints = false
+                    return signInStack
+                }()
+                
+                signInContainer.addSubview(signInStackView)
+                
+                signInStackView.centerXAnchor.constraint(equalTo: signInContainer.centerXAnchor).isActive = true
+                signInStackView.widthAnchor.constraint(equalTo: signInContainer.widthAnchor).isActive = true
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        guard let _ = segue.destination as? UITabBarController else { return }
+                return signInContainer
+            }()
+            
+//            let signUpTextFieldContainer: UIView = {
+//                let signUpContainer = UIView()
+//                signUpContainer.isHidden = true
+//                return signUpContainer
+//            }()
+            
+            container.addSubview(signInTextFieldContainer)
+//            container.addSubview(signUpTextFieldContainer)
+            
+            signInTextFieldContainer.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
+            signInTextFieldContainer.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 25).isActive = true
+            
+//            signInTextFieldContainer.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
+//            signInTextFieldContainer.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
+            
+            signInTextFieldContainer.heightAnchor.constraint(equalTo: container.heightAnchor).isActive = true
+//            signInTextFieldContainer.frame.size.width = segmentedControl.frame.width
+            signInTextFieldContainer.widthAnchor.constraint(equalTo: segmentedControl.widthAnchor).isActive = true
+//            signInTextFieldContainer.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor).isActive = true
+//            signInTextFieldContainer.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor).isActive = true
+
+            return container
+        }()
+
+        let buttonContainer: UIView = {
+            let container = UIView()
+            container.translatesAutoresizingMaskIntoConstraints = false
+
+            container.backgroundColor = .green
+
+            let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+
+            container.addSubview(button)
+            button.backgroundColor = .green
+
+            button.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
+            button.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.5).isActive = true
+            button.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.5).isActive = true
+            
+            return container
+        }()
+        
+        // Stack view wrapper
+        let primaryStackView = UIStackView(arrangedSubviews: [imageContainer, inputContainer, buttonContainer])
+        view.addSubview(primaryStackView)
+        primaryStackView.translatesAutoresizingMaskIntoConstraints = false
+        primaryStackView.axis = .vertical
+        primaryStackView.alignment = .center
+        primaryStackView.distribution = .fillProportionally
+        primaryStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        primaryStackView.heightAnchor.constraint(equalTo:view.safeAreaLayoutGuide.heightAnchor).isActive = true
+        primaryStackView.widthAnchor.constraint(equalTo:view.safeAreaLayoutGuide.widthAnchor).isActive = true
+//        primaryStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        primaryStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        primaryStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        primaryStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        primaryStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+       
+        imageContainer.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor).isActive = true
+        imageContainer.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.45).isActive = true
+        
+        inputContainer.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor).isActive = true
+        inputContainer.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.30).isActive = true
+        
+        buttonContainer.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor).isActive = true
+        buttonContainer.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.25).isActive = true
+
+
+//        imageView.contentMode = .scaleAspectFit
+        //        view.addSubview(imageView)
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        imageView.centerXAnchor.constraint(equalTo: primaryStackView.centerXAnchor).isActive = true
+//        imageView.topAnchor.constraint(equalTo: primaryStackView.topAnchor, constant: 50).isActive = true
+        
+        
+//        imageView.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor, multiplier: 0.5).isActive = true
+//        imageView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.5).isActive = true
+//        imageView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.9).isActive = true
+
         
     }
-
 
 }
