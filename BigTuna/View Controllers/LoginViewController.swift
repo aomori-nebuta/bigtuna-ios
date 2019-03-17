@@ -76,7 +76,7 @@ class LoginViewController: UIViewController {
             segmentedControl.tintColor = .white
             segmentedControl.translatesAutoresizingMaskIntoConstraints = false
             segmentedControl.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true;
-            segmentedControl.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.3).isActive = true;
+            segmentedControl.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.5).isActive = true;
             segmentedControl.topAnchor.constraint(equalTo: container.topAnchor).isActive = true;
             
             // 'sign in' is initially selected
