@@ -254,6 +254,17 @@ class LoginViewController: UIViewController {
         
     }
     
+    /**
+     Handle UISegmentedControl value change events.
+     - Author:
+     James Wu
+     
+     - parameters:
+        - sender: The UISegmentedControl that sent the event
+     
+     - Version:
+     0.1
+     */
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         
         switch sender.selectedSegmentIndex {
@@ -270,6 +281,22 @@ class LoginViewController: UIViewController {
         }
     }
     
+    /**
+     Handle keyboard notifications.
+     - Author:
+     James Wu
+     
+     - parameters:
+        - notification: The notification signaling keyboard change.
+     
+     - Version:
+     0.1
+     
+     Moves the entire view up on UIResponder.keyboardWillShowNotification or UIResponder.keyboardWillChangeFrameNotification notifications so
+     the keyboard will not obstruct any vital view.
+ 
+     Moves the entire view back to its original position when the user decides to close the keyboard.
+     */
     @objc func keyboardWillChange(notification: Notification) {
         guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
