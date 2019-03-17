@@ -11,6 +11,12 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
+    var signInTextFieldContainer: UIView?
+    var signUpTextFieldContainer: UIView?
+    
+    lazy var segmentedControl = UISegmentedControl(items: ["sign in", "sign up"])
+
+    
     struct Errors {
         static let missingFields: String = "Please enter all fields."
     }
@@ -62,8 +68,7 @@ class LoginViewController: UIViewController {
             let container = UIView()
             container.backgroundColor = .yellow
             container.translatesAutoresizingMaskIntoConstraints = false
-            
-            let segmentedControl = UISegmentedControl(items: ["sign in", "sign up"])
+
             container.addSubview(segmentedControl)
             segmentedControl.translatesAutoresizingMaskIntoConstraints = false
             segmentedControl.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true;
@@ -73,7 +78,9 @@ class LoginViewController: UIViewController {
             // 'sign in' is initially selected
             segmentedControl.selectedSegmentIndex = 0
             
-            let signInTextFieldContainer: UIView = {
+            segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+            
+            signInTextFieldContainer = {
                 let signInContainer = UIView()
                 signInContainer.translatesAutoresizingMaskIntoConstraints = false
                 
@@ -117,7 +124,7 @@ class LoginViewController: UIViewController {
                 return signInContainer
             }()
             
-            let signUpTextFieldContainer: UIView = {
+            signUpTextFieldContainer = {
                 let signUpContainer = UIView()
                 signUpContainer.translatesAutoresizingMaskIntoConstraints = false
                 
@@ -178,16 +185,23 @@ class LoginViewController: UIViewController {
                 signUpStackView.centerYAnchor.constraint(equalTo: signUpContainer.centerYAnchor).isActive = true
                 signUpStackView.widthAnchor.constraint(equalTo: signUpContainer.widthAnchor).isActive = true
                 
+                signUpContainer.alpha = 0.0
+                
                 return signUpContainer
             }()
             
-            container.addSubview(signInTextFieldContainer)
-//            container.addSubview(signUpTextFieldContainer)
+            container.addSubview(signInTextFieldContainer!)
+            container.addSubview(signUpTextFieldContainer!)
+
+            signInTextFieldContainer?.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
+            signInTextFieldContainer?.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
+            signInTextFieldContainer?.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+            signInTextFieldContainer?.widthAnchor.constraint(equalTo: segmentedControl.widthAnchor).isActive = true
             
-            signInTextFieldContainer.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
-            signInTextFieldContainer.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
-            signInTextFieldContainer.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
-            signInTextFieldContainer.widthAnchor.constraint(equalTo: segmentedControl.widthAnchor).isActive = true
+            signUpTextFieldContainer?.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
+            signUpTextFieldContainer?.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
+            signUpTextFieldContainer?.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+            signUpTextFieldContainer?.widthAnchor.constraint(equalTo: segmentedControl.widthAnchor).isActive = true
 
             return container
         }()
@@ -234,23 +248,38 @@ class LoginViewController: UIViewController {
         
         buttonContainer.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor).isActive = true
         buttonContainer.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.25).isActive = true
-
-
-//        imageView.contentMode = .scaleAspectFit
-        //        view.addSubview(imageView)
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        imageView.centerXAnchor.constraint(equalTo: primaryStackView.centerXAnchor).isActive = true
-//        imageView.topAnchor.constraint(equalTo: primaryStackView.topAnchor, constant: 50).isActive = true
-        
-        
-//        imageView.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor, multiplier: 0.5).isActive = true
-//        imageView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.5).isActive = true
-//        imageView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.9).isActive = true
-
         
     }
+    
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        
+        switch sender.selectedSegmentIndex {
+        case 0:
+            signUpTextFieldContainer!.fadeOut()
+            signInTextFieldContainer!.fadeIn()
+            
+        case 1:
+            signInTextFieldContainer!.fadeOut()
+            signUpTextFieldContainer!.fadeIn()
 
+        default:
+            return
+        }
+    }
+}
+
+extension UIView {
+    func fadeIn() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.alpha = 1.0
+        })
+    }
+    
+    func fadeOut() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.alpha = 0.0
+        })
+    }
 }
 
 extension UITextField {
