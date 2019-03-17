@@ -78,29 +78,40 @@ class LoginViewController: UIViewController {
                 signInContainer.translatesAutoresizingMaskIntoConstraints = false
                 
                 let signInStackView: UIStackView = {
-                    let emailTextField = UITextField(frame: CGRect(x: 0, y: 0, width: signInContainer.frame.width, height: signInContainer.frame.height * 0.10))
-                    emailTextField.translatesAutoresizingMaskIntoConstraints = false
-                    emailTextField.placeholder = "email"
-                    emailTextField.backgroundColor = .white
-                    emailTextField.borderStyle = .roundedRect
-                    emailTextField.textAlignment = .left
+                    let emailTextField: UITextField = {
+                        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: signInContainer.frame.width, height: signInContainer.frame.height * 0.10))
+                        textField.translatesAutoresizingMaskIntoConstraints = false
+                        textField.placeholder = "email"
+                        textField.stylizedTextField()
+                        return textField
+                    }()
                     
-                    let signInStack = UIStackView(arrangedSubviews: [emailTextField])
+                    let passwordTextField: UITextField = {
+                        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: signInContainer.frame.width, height: signInContainer.frame.height * 0.10))
+                        textField.translatesAutoresizingMaskIntoConstraints = false
+                        textField.placeholder = "password"
+                        textField.stylizedTextField()
+                        return textField
+                    }()
+                    
+                    let signInStack = UIStackView(arrangedSubviews: [emailTextField, passwordTextField])
+                    signInStack.translatesAutoresizingMaskIntoConstraints = false
                     signInStack.axis = .vertical
                     signInStack.distribution = .fillEqually
                     signInStack.alignment = .center
                     
-                    emailTextField.leadingAnchor.constraint(equalTo: signInStack.leadingAnchor).isActive = true
+                    emailTextField.anchorTo(signInStack)
+                    passwordTextField.anchorTo(signInStack)
                     
-                    emailTextField.trailingAnchor.constraint(equalTo: signInStack.trailingAnchor).isActive = true
-                    
-                    signInStack.translatesAutoresizingMaskIntoConstraints = false
+                    signInStack.spacing = 10
+
                     return signInStack
                 }()
                 
                 signInContainer.addSubview(signInStackView)
                 
                 signInStackView.centerXAnchor.constraint(equalTo: signInContainer.centerXAnchor).isActive = true
+                signInStackView.centerYAnchor.constraint(equalTo: signInContainer.centerYAnchor).isActive = true
                 signInStackView.widthAnchor.constraint(equalTo: signInContainer.widthAnchor).isActive = true
 
                 return signInContainer
@@ -116,16 +127,9 @@ class LoginViewController: UIViewController {
 //            container.addSubview(signUpTextFieldContainer)
             
             signInTextFieldContainer.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
-            signInTextFieldContainer.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 25).isActive = true
-            
-//            signInTextFieldContainer.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
-//            signInTextFieldContainer.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
-            
-            signInTextFieldContainer.heightAnchor.constraint(equalTo: container.heightAnchor).isActive = true
-//            signInTextFieldContainer.frame.size.width = segmentedControl.frame.width
+            signInTextFieldContainer.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor).isActive = true
+            signInTextFieldContainer.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
             signInTextFieldContainer.widthAnchor.constraint(equalTo: segmentedControl.widthAnchor).isActive = true
-//            signInTextFieldContainer.leadingAnchor.constraint(equalTo: segmentedControl.leadingAnchor).isActive = true
-//            signInTextFieldContainer.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor).isActive = true
 
             return container
         }()
@@ -159,7 +163,6 @@ class LoginViewController: UIViewController {
         primaryStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         primaryStackView.heightAnchor.constraint(equalTo:view.safeAreaLayoutGuide.heightAnchor).isActive = true
         primaryStackView.widthAnchor.constraint(equalTo:view.safeAreaLayoutGuide.widthAnchor).isActive = true
-//        primaryStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         primaryStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         primaryStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         primaryStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -190,4 +193,17 @@ class LoginViewController: UIViewController {
         
     }
 
+}
+
+extension UITextField {
+    func stylizedTextField() {
+        self.backgroundColor = .white
+        self.borderStyle = .roundedRect
+        self.textAlignment = .left
+    }
+    
+    func anchorTo(_ view: UIView) {
+        self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
 }
