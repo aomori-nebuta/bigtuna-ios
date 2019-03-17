@@ -14,6 +14,9 @@ class LoginViewController: UIViewController {
     var signInTextFieldContainer: UIView?
     var signUpTextFieldContainer: UIView?
     
+    var signInButton: UIButton?
+    var signUpButton: UIButton?
+    
     lazy var segmentedControl = UISegmentedControl(items: ["sign in", "sign up"])
 
     
@@ -53,7 +56,6 @@ class LoginViewController: UIViewController {
             imageView.contentMode = .scaleAspectFit
             
             let container = UIView()
-            container.backgroundColor = .blue
             container.translatesAutoresizingMaskIntoConstraints = false
             container.addSubview(imageView)
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,10 +70,10 @@ class LoginViewController: UIViewController {
         // Middle third partition of screen contains the segmented control and text fields
         let inputContainer: UIView = {
             let container = UIView()
-            container.backgroundColor = .yellow
             container.translatesAutoresizingMaskIntoConstraints = false
 
             container.addSubview(segmentedControl)
+            segmentedControl.tintColor = .white
             segmentedControl.translatesAutoresizingMaskIntoConstraints = false
             segmentedControl.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true;
             segmentedControl.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.3).isActive = true;
@@ -213,17 +215,21 @@ class LoginViewController: UIViewController {
             let container = UIView()
             container.translatesAutoresizingMaskIntoConstraints = false
 
-            container.backgroundColor = .green
+            signInButton = UIButton()
+            signInButton?.translatesAutoresizingMaskIntoConstraints = false
+            signInButton?.setTitle("sign in", for: .normal)
+            
+            signUpButton = UIButton()
+            signUpButton?.translatesAutoresizingMaskIntoConstraints = false
+            signUpButton?.setTitle("sign up", for: .normal)
+            // Initially hide sign up button
+            signUpButton?.alpha = 0.0
 
-            let button = UIButton()
-            button.translatesAutoresizingMaskIntoConstraints = false
-
-            container.addSubview(button)
-            button.backgroundColor = .green
-
-            button.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
-            button.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.5).isActive = true
-            button.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.5).isActive = true
+            container.addSubview(signInButton!)
+            container.addSubview(signUpButton!)
+            
+            signInButton?.anchorTo(container)
+            signUpButton?.anchorTo(container)
             
             return container
         }()
@@ -269,12 +275,16 @@ class LoginViewController: UIViewController {
         
         switch sender.selectedSegmentIndex {
         case 0:
-            signUpTextFieldContainer!.fadeOut()
-            signInTextFieldContainer!.fadeIn()
+            signUpTextFieldContainer?.fadeOut()
+            signUpButton?.fadeOut()
+            signInTextFieldContainer?.fadeIn()
+            signInButton?.fadeIn()
             
         case 1:
-            signInTextFieldContainer!.fadeOut()
-            signUpTextFieldContainer!.fadeIn()
+            signInTextFieldContainer?.fadeOut()
+            signInButton?.fadeOut()
+            signUpTextFieldContainer?.fadeIn()
+            signUpButton?.fadeIn()
 
         default:
             return
@@ -336,5 +346,12 @@ extension UITextField {
     func anchorTo(_ view: UIView) {
         self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+}
+
+extension UIButton {
+    func anchorTo(_ view: UIView) {
+        self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        self.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
     }
 }
