@@ -44,6 +44,7 @@ class LoginViewController: UIViewController {
     func setupLayout() {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bluebubbles")!)
         
+        // Upper third partition of screen contains the image
         let imageContainer: UIView = {
             // Image
             let image = UIImage(named: "bigtunalogo2")
@@ -64,6 +65,7 @@ class LoginViewController: UIViewController {
             return container
         }()
         
+        // Middle third partition of screen contains the segmented control and text fields
         let inputContainer: UIView = {
             let container = UIView()
             container.backgroundColor = .yellow
@@ -206,6 +208,7 @@ class LoginViewController: UIViewController {
             return container
         }()
 
+        // Bottom third of screen contains buttons
         let buttonContainer: UIView = {
             let container = UIView()
             container.translatesAutoresizingMaskIntoConstraints = false
