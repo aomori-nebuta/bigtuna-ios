@@ -117,11 +117,69 @@ class LoginViewController: UIViewController {
                 return signInContainer
             }()
             
-//            let signUpTextFieldContainer: UIView = {
-//                let signUpContainer = UIView()
-//                signUpContainer.isHidden = true
-//                return signUpContainer
-//            }()
+            let signUpTextFieldContainer: UIView = {
+                let signUpContainer = UIView()
+                signUpContainer.translatesAutoresizingMaskIntoConstraints = false
+                
+                let signUpStackView: UIStackView = {
+                    let usernameTextField: UITextField = {
+                        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: signUpContainer.frame.width, height: signUpContainer.frame.height * 0.10))
+                        textField.translatesAutoresizingMaskIntoConstraints = false
+                        textField.placeholder = "username"
+                        textField.stylizedTextField()
+                        return textField
+                    }()
+                    
+                    let emailTextField: UITextField = {
+                        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: signUpContainer.frame.width, height: signUpContainer.frame.height * 0.10))
+                        textField.translatesAutoresizingMaskIntoConstraints = false
+                        textField.placeholder = "email"
+                        textField.stylizedTextField()
+                        return textField
+                    }()
+                    
+                    let passwordTextField: UITextField = {
+                        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: signUpContainer.frame.width, height: signUpContainer.frame.height * 0.10))
+                        textField.translatesAutoresizingMaskIntoConstraints = false
+                        textField.placeholder = "password"
+                        textField.stylizedTextField()
+                        textField.isSecureTextEntry = true
+                        return textField
+                    }()
+                    
+                    let confirmPasswordTextField: UITextField = {
+                        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: signUpContainer.frame.width, height: signUpContainer.frame.height * 0.10))
+                        textField.translatesAutoresizingMaskIntoConstraints = false
+                        textField.placeholder = "confirm password"
+                        textField.stylizedTextField()
+                        textField.isSecureTextEntry = true
+                        return textField
+                    }()
+                    
+                    let signUpStack = UIStackView(arrangedSubviews: [usernameTextField, emailTextField, passwordTextField, confirmPasswordTextField])
+                    signUpStack.translatesAutoresizingMaskIntoConstraints = false
+                    signUpStack.axis = .vertical
+                    signUpStack.distribution = .fillEqually
+                    signUpStack.alignment = .center
+                    
+                    usernameTextField.anchorTo(signUpStack)
+                    emailTextField.anchorTo(signUpStack)
+                    passwordTextField.anchorTo(signUpStack)
+                    confirmPasswordTextField.anchorTo(signUpStack)
+                    
+                    signUpStack.spacing = 10
+                    
+                    return signUpStack
+                }()
+                
+                signUpContainer.addSubview(signUpStackView)
+                
+                signUpStackView.centerXAnchor.constraint(equalTo: signUpContainer.centerXAnchor).isActive = true
+                signUpStackView.centerYAnchor.constraint(equalTo: signUpContainer.centerYAnchor).isActive = true
+                signUpStackView.widthAnchor.constraint(equalTo: signUpContainer.widthAnchor).isActive = true
+                
+                return signUpContainer
+            }()
             
             container.addSubview(signInTextFieldContainer)
 //            container.addSubview(signUpTextFieldContainer)
