@@ -18,7 +18,6 @@ class LoginViewController: UIViewController {
     var signUpButton: UIButton?
     
     lazy var segmentedControl = UISegmentedControl(items: ["sign in", "sign up"])
-
     
     struct Errors {
         static let missingFields: String = "Please enter all fields."
@@ -29,7 +28,6 @@ class LoginViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setupLayout()
-
 
         // Observers that listen for keyboard change events
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -94,6 +92,7 @@ class LoginViewController: UIViewController {
                         textField.translatesAutoresizingMaskIntoConstraints = false
                         textField.placeholder = "email"
                         textField.stylizedTextField()
+                        textField.tag = ViewTagsEnum.signInEmail.rawValue
                         return textField
                     }()
                     
@@ -101,7 +100,9 @@ class LoginViewController: UIViewController {
                         let textField = UITextField(frame: CGRect(x: 0, y: 0, width: signInContainer.frame.width, height: signInContainer.frame.height * 0.10))
                         textField.translatesAutoresizingMaskIntoConstraints = false
                         textField.placeholder = "password"
+                        textField.isSecureTextEntry = true
                         textField.stylizedTextField()
+                        textField.tag = ViewTagsEnum.signInPassword.rawValue
                         return textField
                     }()
                     
@@ -115,6 +116,7 @@ class LoginViewController: UIViewController {
                     passwordTextField.anchorTo(signInStack)
                     
                     signInStack.spacing = 10
+                    signInStack.tag = ViewTagsEnum.signInStackView.rawValue
 
                     return signInStack
                 }()
@@ -138,6 +140,7 @@ class LoginViewController: UIViewController {
                         textField.translatesAutoresizingMaskIntoConstraints = false
                         textField.placeholder = "username"
                         textField.stylizedTextField()
+                        textField.tag = ViewTagsEnum.signUpUsername.rawValue
                         return textField
                     }()
                     
@@ -146,6 +149,7 @@ class LoginViewController: UIViewController {
                         textField.translatesAutoresizingMaskIntoConstraints = false
                         textField.placeholder = "email"
                         textField.stylizedTextField()
+                        textField.tag = ViewTagsEnum.signUpEmail.rawValue
                         return textField
                     }()
                     
@@ -155,6 +159,7 @@ class LoginViewController: UIViewController {
                         textField.placeholder = "password"
                         textField.stylizedTextField()
                         textField.isSecureTextEntry = true
+                        textField.tag = ViewTagsEnum.signUpPassword.rawValue
                         return textField
                     }()
                     
@@ -164,6 +169,7 @@ class LoginViewController: UIViewController {
                         textField.placeholder = "confirm password"
                         textField.stylizedTextField()
                         textField.isSecureTextEntry = true
+                        textField.tag = ViewTagsEnum.signUpConfirmPassword.rawValue
                         return textField
                     }()
                     
@@ -179,6 +185,7 @@ class LoginViewController: UIViewController {
                     confirmPasswordTextField.anchorTo(signUpStack)
                     
                     signUpStack.spacing = 10
+                    signUpStack.tag = ViewTagsEnum.signUpStackView.rawValue
                     
                     return signUpStack
                 }()
@@ -224,6 +231,9 @@ class LoginViewController: UIViewController {
             signUpButton?.setTitle("sign up", for: .normal)
             // Initially hide sign up button
             signUpButton?.alpha = 0.0
+
+            signInButton?.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
+            signUpButton?.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
 
             container.addSubview(signInButton!)
             container.addSubview(signUpButton!)
@@ -320,6 +330,73 @@ class LoginViewController: UIViewController {
             view.frame.origin.y = 0
         }
     }
+    
+    @objc func signInButtonPressed(_ sender: UIButton) {
+        guard let signInStackView = signInTextFieldContainer?.viewWithTag(ViewTagsEnum.signInStackView.rawValue) as? UIStackView else { return }
+        
+        guard let emailTextField = signInStackView.viewWithTag(ViewTagsEnum.signInEmail.rawValue) as? UITextField else { return }
+        guard let passwordTextField = signInStackView.viewWithTag(ViewTagsEnum.signInPassword.rawValue) as? UITextField else { return }
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            // TODO: Set warning label here !!
+            return
+        }
+
+        Auth.auth().signIn(withEmail: email, password: password) {
+            (user, error) in
+            if let error = error {
+                // TODO: Display error message here!!
+                print("ERROR!! \(error.localizedDescription)" )
+                return
+            } else {
+                // TODO: Visit next page!!!
+                
+                print("NEXT ONE LESSS GO")
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainTabBarController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+                
+                self.present(mainTabBarController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc func signUpButtonPressed(_ sender: UIButton) {
+        guard let signUpStackView = signUpTextFieldContainer?.viewWithTag(ViewTagsEnum.signUpStackView.rawValue) as? UIStackView else { return }
+        
+        guard let usernameTextField = signUpStackView.viewWithTag(ViewTagsEnum.signUpUsername.rawValue) as? UITextField else { return }
+        guard let emailTextField = signUpStackView.viewWithTag(ViewTagsEnum.signUpEmail.rawValue) as? UITextField else { return }
+        guard let passwordTextField = signUpStackView.viewWithTag(ViewTagsEnum.signUpPassword.rawValue) as? UITextField else { return }
+        guard let confirmPasswordTextField = signUpStackView.viewWithTag(ViewTagsEnum.signUpConfirmPassword.rawValue) as? UITextField else { return }
+        
+        guard let username = usernameTextField.text,
+            let email = emailTextField.text,
+            let password = passwordTextField.text,
+            let confirmPassword = confirmPasswordTextField.text else {
+                // TODO: Display error message here!!
+                return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) {
+            (authResult, error) in
+            if let error = error {
+                // TODO: Display error message here!!
+                return
+            } else {
+                // TODO: Visit next page!!!
+                guard let user = authResult?.user else { return }
+                print("WE MADE IT HERE")
+                
+                let mainTabBarController = MainTabBarController()
+                
+                self.navigationController?.pushViewController(mainTabBarController, animated: true)
+            }
+        }
+        
+    }
+}
+
+enum ViewTagsEnum: Int {
+    case signInEmail = 0, signInPassword, signUpUsername, signUpEmail, signUpPassword, signUpConfirmPassword, signInStackView, signUpStackView
 }
 
 extension UIView {
