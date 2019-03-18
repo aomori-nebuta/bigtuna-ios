@@ -30,10 +30,12 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     func displayCameraActionSheet() {
         let cameraOptionMenu = UIAlertController(title: "Upload Image From", message: nil, preferredStyle: .actionSheet)
         // Safe for determining popover presentations for iPhone or iPad
+        // Based off of: https://stackoverflow.com/q/24224916
         if let popoverPresentationController = cameraOptionMenu.popoverPresentationController {
             popoverPresentationController.sourceView = self.view
             popoverPresentationController.sourceRect = CGRect(x: self.tabBar.frame.width, y: (self.view.bounds.maxY - self.tabBar.frame.height), width: 0, height: 0)
         }
+
         let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { action in self.cameraActionHandler() })
         let cameraRollAction = UIAlertAction(title: "Camera Roll", style: .default, handler: { action in self.cameraRollActionHandler() })
         
