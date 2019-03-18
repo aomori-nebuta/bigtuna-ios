@@ -165,9 +165,9 @@
 		33F73E5B21E2DBF8007A5082 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6336EB74222F9A3800996DE5 /* Camera Controllers */,
 				33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */,
 				333DC3CB21F16C4800873A80 /* LoginViewController.swift */,
-				6352295D220FC22400CADE35 /* CameraViewController.swift */,
 				6352295F220FFB0500CADE35 /* ProfileViewController.swift */,
 				6352296122100C9F00CADE35 /* DiscoverViewController.swift */,
 			);
@@ -196,6 +196,14 @@
 			children = (
 			);
 			path = "Other Controllers";
+			sourceTree = "<group>";
+		};
+		6336EB74222F9A3800996DE5 /* Camera Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6352295D220FC22400CADE35 /* CameraViewController.swift */,
+			);
+			path = "Camera Controllers";
 			sourceTree = "<group>";
 		};
 		669EA643CF6632B0F5F4A29A /* Frameworks */ = {
@@ -638,7 +646,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q6HM8NCC5D;
+				DEVELOPMENT_TEAM = F3Y3A97GQM;
 				INFOPLIST_FILE = BigTuna/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -659,7 +667,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q6HM8NCC5D;
+				DEVELOPMENT_TEAM = F3Y3A97GQM;
 				INFOPLIST_FILE = BigTuna/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
