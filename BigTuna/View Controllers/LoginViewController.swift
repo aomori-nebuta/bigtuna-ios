@@ -18,10 +18,6 @@ class LoginViewController: UIViewController {
     var signUpButton: UIButton?
     
     lazy var segmentedControl = UISegmentedControl(items: ["sign in", "sign up"])
-    
-    struct Errors {
-        static let missingFields: String = "Please enter all fields."
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -337,21 +333,18 @@ class LoginViewController: UIViewController {
         guard let emailTextField = signInStackView.viewWithTag(ViewTagsEnum.signInEmail.rawValue) as? UITextField else { return }
         guard let passwordTextField = signInStackView.viewWithTag(ViewTagsEnum.signInPassword.rawValue) as? UITextField else { return }
         
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
-            // TODO: Set warning label here !!
+        guard let email = emailTextField.text, let password = passwordTextField.text,
+        !email.isEmpty, !password.isEmpty else {
+            self.presentAlert(message: ErrorEnum.emptyFields.rawValue)
             return
         }
 
         Auth.auth().signIn(withEmail: email, password: password) {
             (user, error) in
             if let error = error {
-                // TODO: Display error message here!!
-                print("ERROR!! \(error.localizedDescription)" )
+                self.presentAlert(message: error.localizedDescription)
                 return
             } else {
-                // TODO: Visit next page!!!
-                
-                print("NEXT ONE LESSS GO")
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let mainTabBarController = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
                 
@@ -361,6 +354,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func signUpButtonPressed(_ sender: UIButton) {
+        // Retrieve UI elements
         guard let signUpStackView = signUpTextFieldContainer?.viewWithTag(ViewTagsEnum.signUpStackView.rawValue) as? UIStackView else { return }
         
         guard let usernameTextField = signUpStackView.viewWithTag(ViewTagsEnum.signUpUsername.rawValue) as? UITextField else { return }
@@ -368,24 +362,32 @@ class LoginViewController: UIViewController {
         guard let passwordTextField = signUpStackView.viewWithTag(ViewTagsEnum.signUpPassword.rawValue) as? UITextField else { return }
         guard let confirmPasswordTextField = signUpStackView.viewWithTag(ViewTagsEnum.signUpConfirmPassword.rawValue) as? UITextField else { return }
         
+        // Confirm all text fields are filled
+        // Based on https://stackoverflow.com/a/52139394
         guard let username = usernameTextField.text,
             let email = emailTextField.text,
             let password = passwordTextField.text,
-            let confirmPassword = confirmPasswordTextField.text else {
-                // TODO: Display error message here!!
+            let confirmPassword = confirmPasswordTextField.text,
+            !username.isEmpty, !email.isEmpty, !password.isEmpty, !confirmPassword.isEmpty else {
+                presentAlert(message: ErrorEnum.emptyFields.rawValue)
                 return
+        }
+        
+        // Confirm passwords match
+        if password != confirmPassword {
+            presentAlert(message: ErrorEnum.passwordConfirmationMismatch.rawValue)
+            return
         }
         
         Auth.auth().createUser(withEmail: email, password: password) {
             (authResult, error) in
             if let error = error {
-                // TODO: Display error message here!!
+                self.presentAlert(message: error.localizedDescription)
                 return
             } else {
-                // TODO: Visit next page!!!
                 guard let user = authResult?.user else { return }
-                print("WE MADE IT HERE")
                 
+                // Take user to MainTabBarController
                 let mainTabBarController = MainTabBarController()
                 
                 self.navigationController?.pushViewController(mainTabBarController, animated: true)
@@ -393,6 +395,33 @@ class LoginViewController: UIViewController {
         }
         
     }
+    
+    /**
+     Present the sign-in/sign-up error messages, if any.
+     - Author:
+     James Wu
+     
+     - parameters:
+        - message: The error message to present to the user.
+     
+     - Version:
+     0.1
+     
+     Moves the entire view up on UIResponder.keyboardWillShowNotification or UIResponder.keyboardWillChangeFrameNotification notifications so
+     the keyboard will not obstruct any vital view.
+     
+     Moves the entire view back to its original position when the user decides to close the keyboard.
+     */
+    func presentAlert(message alert: String) {
+        let alert = UIAlertController(title: "Error!", message: alert, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+}
+
+enum ErrorEnum: String {
+    case emptyFields = "Please fill in all fields."
+    case passwordConfirmationMismatch = "Password confirmation is incorrect."
 }
 
 enum ViewTagsEnum: Int {
