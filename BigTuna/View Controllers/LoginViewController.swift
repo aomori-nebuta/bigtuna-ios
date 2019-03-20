@@ -38,6 +38,21 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
+    /**
+     Setup the sign-in/sign-up layout.
+     
+     Constructs the view into three row partitions via vertical UIStackView: the image UIView, the input UIView, and the button UIView.
+     
+     The image UIView simply holds the logo. The input UIView holds a UISegmentedControl and the form textfield container. Lastly,
+     the button UIView contains any buttons to perform sign-in.
+
+     - Author:
+     James Wu
+     
+     - Version:
+     0.1
+
+     */
     func setupLayout() {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bluebubbles")!)
         
@@ -268,6 +283,11 @@ class LoginViewController: UIViewController {
     
     /**
      Handle UISegmentedControl value change events.
+     
+     When the UISegmentedControl index is 0, views associated with sign-up fade out and views associated with sign-in fade in.
+
+     Conversely, when the UISegmentedControl index is 1, views associated with sign-in fade out and views associated with sign-out fade in.
+
      - Author:
      James Wu
      
@@ -299,6 +319,12 @@ class LoginViewController: UIViewController {
     
     /**
      Handle keyboard notifications.
+    
+     Moves the entire view up on UIResponder.keyboardWillShowNotification or UIResponder.keyboardWillChangeFrameNotification notifications so
+     the keyboard will not obstruct any vital view.
+     
+     Moves the entire view back to its original position when the user decides to close the keyboard.
+     
      - Author:
      James Wu
      
@@ -307,11 +333,7 @@ class LoginViewController: UIViewController {
      
      - Version:
      0.1
-     
-     Moves the entire view up on UIResponder.keyboardWillShowNotification or UIResponder.keyboardWillChangeFrameNotification notifications so
-     the keyboard will not obstruct any vital view.
- 
-     Moves the entire view back to its original position when the user decides to close the keyboard.
+
      */
     @objc func keyboardWillChange(notification: Notification) {
         guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -327,12 +349,29 @@ class LoginViewController: UIViewController {
         }
     }
     
+    /**
+     Handle the sign-in button.
+     
+     Programmatically retrieves the input UIView subviews, validates the inputs, and then submits the values to Firebase for login authentication.
+     
+     - Author:
+     James Wu
+     
+     - parameters:
+        - sender: The sign-in button pressed.
+     
+     - Version:
+     0.1
+     
+     */
     @objc func signInButtonPressed(_ sender: UIButton) {
+        // Retrieve UI elements
         guard let signInStackView = signInTextFieldContainer?.viewWithTag(ViewTagsEnum.signInStackView.rawValue) as? UIStackView else { return }
         
         guard let emailTextField = signInStackView.viewWithTag(ViewTagsEnum.signInEmail.rawValue) as? UITextField else { return }
         guard let passwordTextField = signInStackView.viewWithTag(ViewTagsEnum.signInPassword.rawValue) as? UITextField else { return }
         
+        // Check that fields are not empty
         guard let email = emailTextField.text, let password = passwordTextField.text,
         !email.isEmpty, !password.isEmpty else {
             self.presentAlert(message: ErrorEnum.emptyFields.rawValue)
@@ -353,6 +392,21 @@ class LoginViewController: UIViewController {
         }
     }
     
+    /**
+     Handle the sign-up button.
+     
+     Programmatically retrieves the input UIView subviews, validates the inputs, and then submits the values to Firebase for sign-up authentication.
+     
+     - Author:
+     James Wu
+     
+     - parameters:
+        - sender: The sign-up button pressed.
+     
+     - Version:
+     0.1
+     
+     */
     @objc func signUpButtonPressed(_ sender: UIButton) {
         // Retrieve UI elements
         guard let signUpStackView = signUpTextFieldContainer?.viewWithTag(ViewTagsEnum.signUpStackView.rawValue) as? UIStackView else { return }
@@ -398,6 +452,12 @@ class LoginViewController: UIViewController {
     
     /**
      Present the sign-in/sign-up error messages, if any.
+     
+     Moves the entire view up on UIResponder.keyboardWillShowNotification or UIResponder.keyboardWillChangeFrameNotification notifications so
+     the keyboard will not obstruct any vital view.
+     
+     Moves the entire view back to its original position when the user decides to close the keyboard.
+
      - Author:
      James Wu
      
@@ -406,11 +466,7 @@ class LoginViewController: UIViewController {
      
      - Version:
      0.1
-     
-     Moves the entire view up on UIResponder.keyboardWillShowNotification or UIResponder.keyboardWillChangeFrameNotification notifications so
-     the keyboard will not obstruct any vital view.
-     
-     Moves the entire view back to its original position when the user decides to close the keyboard.
+
      */
     func presentAlert(message alert: String) {
         let alert = UIAlertController(title: "Error!", message: alert, preferredStyle: .alert)
