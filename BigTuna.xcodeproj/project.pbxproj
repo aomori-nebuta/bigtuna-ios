@@ -16,6 +16,7 @@
 		3300B62C21E287D500259B48 /* BigTunaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62B21E287D500259B48 /* BigTunaUITests.swift */; };
 		331B192221F6B11300CD39FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 331B192121F6B11200CD39FA /* GoogleService-Info.plist */; };
 		333DC3CC21F16C4800873A80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333DC3CB21F16C4800873A80 /* LoginViewController.swift */; };
+		334542C92246CCC50088E4F3 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334542C82246CCC50088E4F3 /* CategoryCell.swift */; };
 		33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */; };
 		33FEE07521E43C8400269F35 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07421E43C8400269F35 /* Post.swift */; };
 		33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07621E43F8700269F35 /* Restaurant.swift */; };
@@ -59,6 +60,7 @@
 		3300B62D21E287D500259B48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		331B192121F6B11200CD39FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		333DC3CB21F16C4800873A80 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		334542C82246CCC50088E4F3 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		33FEE07421E43C8400269F35 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		33FEE07621E43F8700269F35 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
@@ -130,9 +132,8 @@
 		3300B60A21E287D400259B48 /* BigTuna */ = {
 			isa = PBXGroup;
 			children = (
-				33F73E5E21E2DC38007A5082 /* Other Controllers */,
+				334542C72246CC9A0088E4F3 /* Views */,
 				33F73E5D21E2DC2A007A5082 /* Models */,
-				33F73E5C21E2DC17007A5082 /* Views */,
 				33F73E5B21E2DBF8007A5082 /* View Controllers */,
 				3300B60B21E287D400259B48 /* AppDelegate.swift */,
 				3300B60F21E287D400259B48 /* Main.storyboard */,
@@ -162,6 +163,14 @@
 			path = BigTunaUITests;
 			sourceTree = "<group>";
 		};
+		334542C72246CC9A0088E4F3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				334542C82246CCC50088E4F3 /* CategoryCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		33F73E5B21E2DBF8007A5082 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,13 +183,6 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		33F73E5C21E2DC17007A5082 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		33F73E5D21E2DC2A007A5082 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,13 +191,6 @@
 				33FEE07821E4451700269F35 /* User.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		33F73E5E21E2DC38007A5082 /* Other Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Other Controllers";
 			sourceTree = "<group>";
 		};
 		669EA643CF6632B0F5F4A29A /* Frameworks */ = {
@@ -461,6 +456,7 @@
 				6352296222100C9F00CADE35 /* DiscoverViewController.swift in Sources */,
 				63522960220FFB0500CADE35 /* ProfileViewController.swift in Sources */,
 				3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */,
+				334542C92246CCC50088E4F3 /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
