@@ -11,6 +11,8 @@ import UIKit
 class DiscoverViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     private let postCellIdentifier = "PostCell"
+    private let categoryHeaderCellIdentifier = "CategoryHeaderCell"
+    private let footerCellIdentifier = "FooterCell"
     
     let data = ["one", "two", "three"]
     
@@ -27,6 +29,8 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
         
         collectionView.dataSource = self
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: postCellIdentifier)
+        collectionView.register(CategoryCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderCellIdentifier)
+        collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerCellIdentifier)
         
         setupGridView()
     }
@@ -63,6 +67,20 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.size.width * 0.3, height: view.frame.size.height * 0.15)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderCellIdentifier, for: indexPath)
+            return header
+        } else {
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerCellIdentifier, for: indexPath)
+            return footer
+        }
     }
     
     // Based on https://www.youtube.com/watch?v=FMqX628vE1c
