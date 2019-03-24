@@ -10,6 +10,8 @@ import UIKit
 
 class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    let data = [["bob", "joe"], ["sally", "rob"], ["jill"]]
+    
     private let postCellIdentifier = "PostCell"
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,7 +56,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollection
     
     // Conforms to protocol UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return data.count
     }
     
     // Conforms to protocol UICollectionViewDataSource
@@ -65,22 +67,5 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         return CGSize(width: frame.width * 0.3, height: frame.height)
-    }
-    
-}
-
-class PostCell: UICollectionViewCell {
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("Required init not implemented for PostCell!")
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .purple
-        setupViews()
-    }
-    
-    func setupViews() {
-        backgroundColor = .brown
     }
 }
