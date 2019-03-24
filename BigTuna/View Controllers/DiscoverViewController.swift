@@ -11,7 +11,7 @@ import UIKit
 class DiscoverViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     private let postCellIdentifier = "PostCell"
-    private let categoryHeaderCellIdentifier = "CategoryHeaderCell"
+    private let categoryHeaderIdentifier = "CategoryHeader"
     private let footerCellIdentifier = "FooterCell"
     
     let data = ["one", "two", "three"]
@@ -29,7 +29,7 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
         
         collectionView.dataSource = self
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: postCellIdentifier)
-        collectionView.register(CategoryCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderCellIdentifier)
+        collectionView.register(CategoryHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderIdentifier)
         collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerCellIdentifier)
         
         setupGridView()
@@ -48,6 +48,7 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
         let flow = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let inset = view.frame.width * 0.035
         flow.sectionInset = UIEdgeInsets(top: inset , left: inset, bottom: inset, right: inset)
+        flow.sectionHeadersPinToVisibleBounds = true
         flow.minimumInteritemSpacing = CGFloat(cellMarginSize)
         flow.minimumLineSpacing = CGFloat(cellMarginSize)
     }
@@ -70,12 +71,12 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.size.width * 0.3, height: view.frame.size.height * 0.15)
+        return CGSize(width: view.frame.size.width * 0.3, height: view.frame.size.height * 0.25)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderCellIdentifier, for: indexPath)
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderIdentifier, for: indexPath)
             return header
         } else {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerCellIdentifier, for: indexPath)
