@@ -61,7 +61,7 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
         categoryCollectionView.topAnchor.constraint(equalTo: discoverLabel.bottomAnchor).isActive = true
         
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]-16-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": categoryCollectionView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": categoryCollectionView]))
         
         categoryCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.75).isActive = true
         
@@ -73,7 +73,8 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     // Conforms to protocol UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellIdentifier, for: indexPath) as! CategoryCell
-        cell.label.text = data[indexPath.row]
+        cell.categoryLabel.text = data[indexPath.row]
+        cell.categoryImageView.image = UIImage(named: "bigtunalogo2")
         return cell
     }
 
@@ -92,10 +93,28 @@ class CategoryCell: UICollectionViewCell {
         fatalError("Required init not implemented for PostCell!")
     }
     
-    let label: UILabel = {
+    let categoryImageView: UIImageView = {
+        let image = UIImage()
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    let categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let verticalStackView: UIStackView = {
+        let verticalStackView = UIStackView()
+        verticalStackView.axis = .vertical
+        verticalStackView.distribution = .fillEqually
+        verticalStackView.alignment = .center
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+        return verticalStackView
     }()
     
     override init(frame: CGRect) {
@@ -105,10 +124,20 @@ class CategoryCell: UICollectionViewCell {
     }
     
     func setupViews() {
-        addSubview(label)
+        addSubview(verticalStackView)
         
-        label.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
-        label.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
+        verticalStackView.addArrangedSubview(categoryImageView)
+        verticalStackView.addArrangedSubview(categoryLabel)
+        
+        categoryImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
+        categoryImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
+        
+        categoryLabel.topAnchor.constraint(equalTo: categoryImageView.bottomAnchor).isActive = true
+        categoryLabel.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor).isActive = true
+
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": verticalStackView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": verticalStackView]))
+        
     }
 }
 
