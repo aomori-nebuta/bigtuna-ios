@@ -37,13 +37,10 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     
     func setupGridView() {
         let flow = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        let inset = view.frame.width * 0.035
-        flow.sectionInset = UIEdgeInsets(top: inset , left: inset, bottom: inset, right: inset)
         flow.sectionHeadersPinToVisibleBounds = true
         flow.minimumInteritemSpacing = CGFloat(cellMarginSize)
         flow.minimumLineSpacing = CGFloat(cellMarginSize)
     }
-    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postCellIdentifier, for: indexPath) as! PostCell
@@ -55,6 +52,10 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = calculateWidth()
         return CGSize(width: width, height: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
