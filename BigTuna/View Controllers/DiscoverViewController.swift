@@ -35,15 +35,6 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
         setupGridView()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        self.setupGridView()
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
-    
     func setupGridView() {
         let flow = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let inset = view.frame.width * 0.035
