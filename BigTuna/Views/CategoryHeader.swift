@@ -23,6 +23,7 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .purple
+        NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationChanged), name: Notification.Name("UIDeviceOrientationDidChangeNotification"), object: nil)
         setupViews()
     }
 
@@ -60,21 +61,21 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
         
         categoryCollectionView.topAnchor.constraint(equalTo: discoverLabel.bottomAnchor).isActive = true
         
-        
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": categoryCollectionView]))
         
-        categoryCollectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.75).isActive = true
-        
-        let flow = categoryCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        let inset = CGFloat(8)
-        flow.sectionInset = UIEdgeInsets(top: inset , left: inset, bottom: inset, right: inset)
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": categoryCollectionView]))
+        categoryCollectionView.contentInset.top = frame.height/4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
     }
     
     // Conforms to protocol UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellIdentifier, for: indexPath) as! CategoryCell
         cell.categoryLabel.text = data[indexPath.row]
-        cell.categoryImageView.image = UIImage(named: "bigtunalogo2")
+        cell.categoryImageView.image = UIImage(named: "SurprisedPikachu")
         return cell
     }
 
@@ -85,6 +86,11 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: frame.width * 0.2, height: frame.height * 0.55)
+    }
+    
+    @objc func deviceOrientationChanged() {
+        setupViews()
+        categoryCollectionView.reloadData()
     }
 }
 
@@ -136,7 +142,7 @@ class CategoryCell: UICollectionViewCell {
         categoryLabel.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor).isActive = true
 
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": verticalStackView]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-16-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": verticalStackView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": verticalStackView]))
         
     }
 }
