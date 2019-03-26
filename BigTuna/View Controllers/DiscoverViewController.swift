@@ -14,7 +14,7 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     private let categoryHeaderIdentifier = "CategoryHeader"
     private let footerCellIdentifier = "FooterCell"
     
-    let data = ["one", "two", "three"]
+    let data = ["one", "two", "three", "four", "five"]
     
     let estimatedWidth = 160.0
     let cellMarginSize = 16.0
