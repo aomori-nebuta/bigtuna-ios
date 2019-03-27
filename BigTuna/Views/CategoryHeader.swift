@@ -23,7 +23,6 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .purple
-        NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationChanged), name: Notification.Name("UIDeviceOrientationDidChangeNotification"), object: nil)
         setupViews()
     }
 
@@ -48,10 +47,6 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     
     func setupViews() {
         addSubview(discoverLabel)
-        
-        discoverLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        discoverLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
-        
         addSubview(categoryCollectionView)
         
         categoryCollectionView.dataSource = self
@@ -63,19 +58,22 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": categoryCollectionView]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": categoryCollectionView]))
-        categoryCollectionView.contentInset.top = frame.height/4
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]-[v1]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": discoverLabel, "v1": categoryCollectionView]))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        let topInset = (collectionView.frame.height * 0.2)
+
+        return UIEdgeInsets(top: topInset, left: 14, bottom: 0, right: 14)
     }
     
     // Conforms to protocol UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellIdentifier, for: indexPath) as! CategoryCell
+        cell.updateConstraints()
         cell.categoryLabel.text = data[indexPath.row]
         cell.categoryImageView.image = UIImage(named: "SurprisedPikachu")
+        cell.categoryImageView.setRounded()
         return cell
     }
 
@@ -85,26 +83,38 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width * 0.2, height: frame.height * 0.55)
+        let width = collectionView.frame.width * 0.15
+        let height = collectionView.frame.height * (0.6)
+
+        return CGSize(width: width, height: height)
     }
-    
-    @objc func deviceOrientationChanged() {
-        setupViews()
-        categoryCollectionView.reloadData()
-    }
+
 }
 
 class CategoryCell: UICollectionViewCell {
+    
+    var categoryImageViewWidthConstraintToHeight: NSLayoutConstraint?
+    var categoryImageViewHeightConstraintToHeight: NSLayoutConstraint?
+    
+    var categoryImageViewWidthConstraintToWidth: NSLayoutConstraint?
+    var categoryImageViewHeightConstraintToWidth: NSLayoutConstraint?
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("Required init not implemented for PostCell!")
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .yellow
+        setupViews()
     }
     
     let categoryImageView: UIImageView = {
         let image = UIImage()
         let imageView = UIImageView()
-        imageView.image = image
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         return imageView
     }()
     
@@ -114,36 +124,50 @@ class CategoryCell: UICollectionViewCell {
         return label
     }()
     
-    let verticalStackView: UIStackView = {
-        let verticalStackView = UIStackView()
-        verticalStackView.axis = .vertical
-        verticalStackView.distribution = .fillEqually
-        verticalStackView.alignment = .center
-        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        return verticalStackView
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .yellow
-        setupViews()
+    func setupViews() {
+        addSubview(categoryImageView)
+
+        categoryImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+
+        categoryImageViewWidthConstraintToHeight = categoryImageView.widthAnchor.constraint(equalTo: heightAnchor)
+        categoryImageViewHeightConstraintToHeight = categoryImageView.heightAnchor.constraint(equalTo: heightAnchor)
+        
+        categoryImageViewWidthConstraintToWidth = categoryImageView.widthAnchor.constraint(equalTo: widthAnchor)
+        categoryImageViewHeightConstraintToWidth = categoryImageView.heightAnchor.constraint(equalTo: widthAnchor)
     }
     
-    func setupViews() {
-        addSubview(verticalStackView)
-        
-        verticalStackView.addArrangedSubview(categoryImageView)
-        verticalStackView.addArrangedSubview(categoryLabel)
-        
-        categoryImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
-        categoryImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
-        
-        categoryLabel.topAnchor.constraint(equalTo: categoryImageView.bottomAnchor).isActive = true
-        categoryLabel.bottomAnchor.constraint(equalTo: verticalStackView.bottomAnchor).isActive = true
+    override func updateConstraints() {
+        super.updateConstraints()
 
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": verticalStackView]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0": verticalStackView]))
+        let width = frame.width * 0.5
+        let height = frame.height * 0.5
         
+        if (width > height) {
+            categoryImageView.frame.size.width = height
+            categoryImageView.frame.size.height = height
+            categoryImageViewHeightConstraintToHeight?.isActive = true
+            categoryImageViewWidthConstraintToHeight?.isActive = true
+            categoryImageViewHeightConstraintToWidth?.isActive = false
+            categoryImageViewWidthConstraintToWidth?.isActive = false
+        } else {
+            categoryImageView.frame.size.width = width
+            categoryImageView.frame.size.height = width
+            categoryImageViewHeightConstraintToHeight?.isActive = false
+            categoryImageViewWidthConstraintToHeight?.isActive = false
+            categoryImageViewHeightConstraintToWidth?.isActive = true
+            categoryImageViewWidthConstraintToWidth?.isActive = true
+        }
+    }
+    
+}
+
+// Based on https://stackoverflow.com/a/37259630
+extension UIImageView {
+    func setRounded() {
+        print("WIDTH AFTER: \(self.frame.size.width)")
+        self.layer.cornerRadius = self.frame.size.width/2
+        self.layer.masksToBounds = true
+        self.clipsToBounds = true
     }
 }
 
