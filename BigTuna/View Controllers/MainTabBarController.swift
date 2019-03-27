@@ -24,7 +24,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     func instantiateTabViewControllers() {
         discoverViewController = storyboard?.instantiateViewController(withIdentifier: "DiscoverViewController")
         cameraViewController = storyboard?.instantiateViewController(withIdentifier: "CameraViewController")
-        profileViewController = UIStoryboard(name: "ProfileView", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as UIViewController
+        profileViewController = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController")
     }
     
     func displayCameraActionSheet() {

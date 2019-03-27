@@ -11,12 +11,7 @@ import Alamofire
 import Kingfisher
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    @IBOutlet weak var userProfileIcon: UIImageView!
-    @IBOutlet weak var userUserName: UILabel!
-    @IBOutlet weak var userFullName: UILabel!
-    @IBOutlet weak var userDescription: UILabel!
-    @IBOutlet weak var userLocation: UILabel!
-    @IBOutlet weak var userPostCount: UILabel!
+    var primaryStackView = UIStackView()
     
     var posts = Array<Post>();
     var user: User = User(userName: "", fullName: "", profilePicture: UIImage(), followers: Array<User>(), posts: Array<Post>(), description: "");
@@ -33,7 +28,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         //TODO, https requests only in the future
         //see https://stackoverflow.com/questions/32712155/app-transport-security-policy-requires-the-use-of-a-secure-connection-ios-9 and undo
         let hostName = "ec2-18-217-215-145.us-east-2.compute.amazonaws.com"; //TODO
-        let port = "8000"; //TODO
+        let port = "8010"; //TODO
         let baseURL = "http://" + hostName + ":" + port; //TODO
         let userId = "5c8727ba2556d0e49c820591"; //TODO
         let userInfoUrl = baseURL + "/users/" + userId;
@@ -57,7 +52,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 //let location = JSON["location"] as! [String: Any];
                 //TODO set user here; or call a function like parseUser
                 
-                self.displayUser();
+                self.displayUI();
                 
                 break;
             case .failure(let error):
@@ -81,7 +76,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                     self.posts.append(userPost);
                 }
                 
-                self.displayPosts();
+                self.displayUI();
                 
                 break;
             case .failure(let error):
@@ -130,30 +125,45 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func displayUI() {
-        displayUser();
-        displayPosts();
-    }
-    
-    func displayUser() {
-        self.userUserName.text = user.userName;
-        self.userFullName.text = user.fullName;
-        self.userDescription.text = user.description;
-        self.userPostCount.text = String(self.posts.count) + " posts";
-    }
-    
-    func displayPosts() {
+        
+        
+        
+        let userProfileIcon = UIImageView();
+        let userUserName = UILabel();
+        let userFullName = UILabel();
+        let userDescription = UILabel();
+        let userLocation = UILabel();
+        let userPostCount = UILabel();
+        
+        userUserName.text = user.userName;
+        userFullName.text = user.fullName;
+        userDescription.text = user.description;
+        userPostCount.text = String(self.posts.count) + " posts";
+        
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 100, height: 100)
         
         
-        let myCollectionView:UICollectionView = UICollectionView(frame: CGRect(x: 10, y: 210, width: 300, height: 300), collectionViewLayout: layout); //todo resizable frame
+        let myCollectionView = UICollectionView(frame: CGRect(x: 10, y: 210, width: 300, height: 300), collectionViewLayout: layout); //todo resizable frame
         myCollectionView.dataSource = self as UICollectionViewDataSource
         myCollectionView.delegate = self as UICollectionViewDelegate
         myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
         myCollectionView.backgroundColor = UIColor.white
-        self.view.addSubview(myCollectionView)
+        
+        
+        primaryStackView = UIStackView(arrangedSubviews: [
+            userProfileIcon,
+            userUserName,
+            userFullName,
+            userDescription,
+            userLocation,
+            userPostCount,
+            myCollectionView
+        ])
+        
+        view.addSubview(primaryStackView);
     }
     
 
