@@ -109,6 +109,7 @@ class LoginInputViewBuilder: NSObject {
     private func setupSignInStackView() {
         let emailTextField = getInputTextField(container: signInContainer, placeholder: "email", tagValue: LoginInputViewTags.signInEmail.rawValue)
         let passwordTextField = getInputTextField(container: signInContainer, placeholder: "password", tagValue: LoginInputViewTags.signInPassword.rawValue)
+        passwordTextField.isSecureTextEntry = true
         
         signInStackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField])
         emailTextField.anchorTo(signInStackView)
@@ -119,7 +120,9 @@ class LoginInputViewBuilder: NSObject {
         let usernameTextField = getInputTextField(container: signUpContainer, placeholder: "username", tagValue: LoginInputViewTags.signUpUsername.rawValue)
         let emailTextField = getInputTextField(container: signUpContainer, placeholder: "email", tagValue: LoginInputViewTags.signUpEmail.rawValue)
         let passwordTextField = getInputTextField(container: signUpContainer, placeholder: "password", tagValue: LoginInputViewTags.signUpPassword.rawValue)
+        passwordTextField.isSecureTextEntry = true
         let confirmPasswordTextField = getInputTextField(container: signUpContainer, placeholder: "confirm password", tagValue: LoginInputViewTags.signUpConfirmPassword.rawValue)
+        confirmPasswordTextField.isSecureTextEntry = true
         
         signUpStackView = UIStackView(arrangedSubviews: [usernameTextField, emailTextField, passwordTextField, confirmPasswordTextField])
         usernameTextField.anchorTo(signUpStackView)
