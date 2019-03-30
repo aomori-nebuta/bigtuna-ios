@@ -88,6 +88,7 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     }
     
     func reloadHeader() {
+        // Based on https://stackoverflow.com/a/13611230
         categoryCollectionView.reloadSections(NSIndexSet(index: 0) as IndexSet)
     }
 
