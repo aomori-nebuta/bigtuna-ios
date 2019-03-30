@@ -11,7 +11,6 @@ import UIKit
 
 class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
-
     let data = ["data1", "data2"]
     
     private let categoryCellIdentifier = "CategoryCell"
@@ -85,8 +84,11 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width * 0.15
         let height = collectionView.frame.height * (0.6)
-
         return CGSize(width: width, height: height)
+    }
+    
+    func reloadHeader() {
+        categoryCollectionView.reloadSections(NSIndexSet(index: 0) as IndexSet)
     }
 
 }
@@ -98,6 +100,8 @@ class CategoryCell: UICollectionViewCell {
     
     var categoryImageViewWidthConstraintToWidth: NSLayoutConstraint?
     var categoryImageViewHeightConstraintToWidth: NSLayoutConstraint?
+    
+    var categoryImageViewTopConstraint: NSLayoutConstraint?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("Required init not implemented for PostCell!")
@@ -126,21 +130,28 @@ class CategoryCell: UICollectionViewCell {
     
     func setupViews() {
         addSubview(categoryImageView)
+        addSubview(categoryLabel)
 
         categoryImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
 
-        categoryImageViewWidthConstraintToHeight = categoryImageView.widthAnchor.constraint(equalTo: heightAnchor)
-        categoryImageViewHeightConstraintToHeight = categoryImageView.heightAnchor.constraint(equalTo: heightAnchor)
+        categoryImageViewWidthConstraintToHeight = categoryImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.75)
+        categoryImageViewHeightConstraintToHeight = categoryImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.75)
         
-        categoryImageViewWidthConstraintToWidth = categoryImageView.widthAnchor.constraint(equalTo: widthAnchor)
-        categoryImageViewHeightConstraintToWidth = categoryImageView.heightAnchor.constraint(equalTo: widthAnchor)
+        categoryImageViewWidthConstraintToWidth = categoryImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75)
+        categoryImageViewHeightConstraintToWidth = categoryImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75)
+        
+        categoryImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        categoryLabel.topAnchor.constraint(equalTo:categoryImageView.bottomAnchor).isActive = true
+        categoryLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        categoryLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+
     }
     
     override func updateConstraints() {
         super.updateConstraints()
 
-        let width = frame.width * 0.5
-        let height = frame.height * 0.5
+        let width = frame.width * 0.75
+        let height = frame.height * 0.75
         
         if (width > height) {
             categoryImageView.frame.size.width = height
@@ -149,6 +160,8 @@ class CategoryCell: UICollectionViewCell {
             categoryImageViewWidthConstraintToHeight?.isActive = true
             categoryImageViewHeightConstraintToWidth?.isActive = false
             categoryImageViewWidthConstraintToWidth?.isActive = false
+            
+            
         } else {
             categoryImageView.frame.size.width = width
             categoryImageView.frame.size.height = width
@@ -157,6 +170,7 @@ class CategoryCell: UICollectionViewCell {
             categoryImageViewHeightConstraintToWidth?.isActive = true
             categoryImageViewWidthConstraintToWidth?.isActive = true
         }
+
     }
     
 }
