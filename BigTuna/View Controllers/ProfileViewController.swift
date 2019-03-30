@@ -51,8 +51,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 //TODO location
                 //let location = JSON["location"] as! [String: Any];
                 //TODO set user here; or call a function like parseUser
-                
-                self.displayUI();
+                self.view.backgroundColor = .red; //debug
+                self.getUserPosts(userPostsURL: userPostsURL);
                 
                 break;
             case .failure(let error):
@@ -61,28 +61,31 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
         }
         
+    }
+    
+    func getUserPosts(userPostsURL: String) {
         Alamofire.request(
             userPostsURL,
             method: .get
-        ).validate()
-        .responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                let JSON = data as? Array<[String: Any]> ?? [];
-                
-                for rawPostJSON in JSON {
-                    let userPost = self.parseUserPost(postData: rawPostJSON);
+            ).validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    let JSON = data as? Array<[String: Any]> ?? [];
                     
-                    self.posts.append(userPost);
+                    for rawPostJSON in JSON {
+                        let userPost = self.parseUserPost(postData: rawPostJSON);
+                        
+                        self.posts.append(userPost);
+                    }
+                    
+                    self.displayUI();
+                    
+                    break;
+                case .failure(let error):
+                    print(error);
+                    break;
                 }
-                
-                self.displayUI();
-                
-                break;
-            case .failure(let error):
-                print(error);
-                break;
-            }
         }
     }
     
@@ -125,48 +128,91 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func displayUI() {
+        //https://riptutorial.com/ios/example/1110/create-a-uilabel
+        //how to size a ui label
+        let userProfileIconView = UIImageView();
+        userProfileIconView.backgroundColor = .green; //debug
+        let userUserNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userUserNameView.backgroundColor = .black; //debug
+        let userFullNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userFullNameView.backgroundColor = .gray; //debug
+        let userDescriptionView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userDescriptionView.backgroundColor = .blue; //debug
+        let userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userLocationView.backgroundColor = .yellow; //debug
+        let userPostCountView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userPostCountView.backgroundColor = .orange; //debug
         
-        
-        
-        let userProfileIcon = UIImageView();
-        let userUserName = UILabel();
-        let userFullName = UILabel();
-        let userDescription = UILabel();
-        let userLocation = UILabel();
-        let userPostCount = UILabel();
-        
-        userUserName.text = user.userName;
-        userFullName.text = user.fullName;
-        userDescription.text = user.description;
-        userPostCount.text = String(self.posts.count) + " posts";
+        userUserNameView.text = user.userName;
+        userFullNameView.text = user.fullName;
+        userDescriptionView.text = user.description;
+        userLocationView.text = "Seattle, Washington"; //TODO parse later
+        userPostCountView.text = String(self.posts.count) + " posts";
         
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 100, height: 100)
         
-        
         let myCollectionView = UICollectionView(frame: CGRect(x: 10, y: 210, width: 300, height: 300), collectionViewLayout: layout); //todo resizable frame
         myCollectionView.dataSource = self as UICollectionViewDataSource
         myCollectionView.delegate = self as UICollectionViewDelegate
         myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
-        myCollectionView.backgroundColor = UIColor.white
+        myCollectionView.backgroundColor = UIColor.blue
         
+        
+        let profileInfoStackView = UIStackView();
+        profileInfoStackView.axis = .vertical;
+        
+        let profilePictureAndUserInfoStackView = UIStackView();
+        profilePictureAndUserInfoStackView.axis = .horizontal;
+        
+        let profileNameAndDescriptionView = UIStackView();
+        profileNameAndDescriptionView.axis = .vertical;
+        profileNameAndDescriptionView.addArrangedSubview(userFullNameView);
+        profileNameAndDescriptionView.addArrangedSubview(userDescriptionView);
+        
+        profilePictureAndUserInfoStackView.addArrangedSubview(userProfileIconView);
+        profilePictureAndUserInfoStackView.addArrangedSubview(profileNameAndDescriptionView);
+        
+        let locationAndPostView = UIStackView();
+        locationAndPostView.axis = .horizontal;
+        locationAndPostView.addArrangedSubview(userLocationView);
+        locationAndPostView.addArrangedSubview(userPostCountView);
+        
+        profileInfoStackView.addArrangedSubview(profilePictureAndUserInfoStackView);
+        profileInfoStackView.addArrangedSubview(locationAndPostView);
         
         primaryStackView = UIStackView(arrangedSubviews: [
-            userProfileIcon,
-            userUserName,
-            userFullName,
-            userDescription,
-            userLocation,
-            userPostCount,
+            profileInfoStackView,
             myCollectionView
-        ])
+            ]);
         
-        view.addSubview(primaryStackView);
+        self.view.addSubview(primaryStackView);
+        
+        self.setViewProperties();
+        
+        //TODO
+        userProfileIconView.contentMode = .scaleAspectFit;
+        userProfileIconView.widthAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.widthAnchor, multiplier: 0.25).isActive = true;
+        //userProfileIconView.heightAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.heightAnchor).isActive = true;
     }
     
-
+    func setViewProperties() {
+        primaryStackView.translatesAutoresizingMaskIntoConstraints = false
+        primaryStackView.axis = .vertical
+        primaryStackView.alignment = .center
+        primaryStackView.distribution = .fillProportionally
+        
+        primaryStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        primaryStackView.heightAnchor.constraint(equalTo:view.safeAreaLayoutGuide.heightAnchor).isActive = true
+        primaryStackView.widthAnchor.constraint(equalTo:view.safeAreaLayoutGuide.widthAnchor).isActive = true
+        primaryStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        primaryStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        primaryStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        primaryStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+    }
+    
     /*
     // MARK: - Navigation
 
