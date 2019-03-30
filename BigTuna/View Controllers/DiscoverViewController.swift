@@ -19,6 +19,8 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     let estimatedWidth = 160.0
     let cellMarginSize = 16.0
     
+    var categoryHeader: CategoryHeader?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -68,11 +70,19 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderIdentifier, for: indexPath)
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderIdentifier, for: indexPath) as! CategoryHeader
+            categoryHeader = header
             return header
         } else {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerCellIdentifier, for: indexPath)
             return footer
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { _ in
+            self.categoryHeader?.reloadHeader()
         }
     }
     
