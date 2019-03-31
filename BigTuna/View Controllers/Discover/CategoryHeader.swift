@@ -32,7 +32,6 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
-        label.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 25)
         label.text = "Discover Near "
         return label
     }()
