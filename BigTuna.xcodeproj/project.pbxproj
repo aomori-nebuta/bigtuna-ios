@@ -142,7 +142,6 @@
 		3300B60A21E287D400259B48 /* BigTuna */ = {
 			isa = PBXGroup;
 			children = (
-				334542C72246CC9A0088E4F3 /* Views */,
 				33F73E5D21E2DC2A007A5082 /* Models */,
 				33F73E5B21E2DBF8007A5082 /* View Controllers */,
 				3300B60B21E287D400259B48 /* AppDelegate.swift */,
@@ -173,23 +172,24 @@
 			path = BigTunaUITests;
 			sourceTree = "<group>";
 		};
-		334542C72246CC9A0088E4F3 /* Views */ = {
+		330ED3F02251095200164CA6 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
 				334542C82246CCC50088E4F3 /* CategoryHeader.swift */,
 				33BC9B6B2247D12E007D3FEC /* PostCell.swift */,
+				6352296122100C9F00CADE35 /* DiscoverViewController.swift */,
 			);
-			path = Views;
+			path = Discover;
 			sourceTree = "<group>";
 		};
 		33F73E5B21E2DBF8007A5082 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				330ED3F02251095200164CA6 /* Discover */,
 				63D578BD2241FAB800C6087E /* Login */,
 				33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */,
 				6352295D220FC22400CADE35 /* CameraViewController.swift */,
 				6352295F220FFB0500CADE35 /* ProfileViewController.swift */,
-				6352296122100C9F00CADE35 /* DiscoverViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -202,13 +202,6 @@
 				33FEE07821E4451700269F35 /* User.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		33F73E5E21E2DC38007A5082 /* Other Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Other Controllers";
 			sourceTree = "<group>";
 		};
 		63D578BD2241FAB800C6087E /* Login */ = {
