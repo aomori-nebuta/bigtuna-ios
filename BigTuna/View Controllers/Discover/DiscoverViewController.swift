@@ -13,12 +13,13 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     private let postCellIdentifier = "PostCell"
     private let categoryHeaderIdentifier = "CategoryHeader"
     private let footerCellIdentifier = "FooterCell"
+
+    private let estimatedWidth = 160.0
+    private let cellMarginSize = 16.0
     
     let data = ["one", "two", "three", "four", "five"]
     
-    let estimatedWidth = 160.0
-    let cellMarginSize = 16.0
-    
+    // Reference to the category header
     var categoryHeader: CategoryHeader?
     
     override func viewDidLoad() {
@@ -30,6 +31,7 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
         collectionView.backgroundColor = .green
         
         collectionView.dataSource = self
+
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: postCellIdentifier)
         collectionView.register(CategoryHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: categoryHeaderIdentifier)
         collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerCellIdentifier)
@@ -46,26 +48,12 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: postCellIdentifier, for: indexPath) as! PostCell
-        print(indexPath.row)
         cell.setData(text: data[indexPath.row])
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = calculateWidth()
-        return CGSize(width: width, height: width)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.size.width * 0.3, height: view.frame.size.height * 0.25)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -81,13 +69,39 @@ class DiscoverViewController: UICollectionViewController, UICollectionViewDelega
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        // Wait for screen orientation change to finish, then reload the header with the new frame bounds
         coordinator.animate(alongsideTransition: nil) { _ in
             self.categoryHeader?.reloadHeader()
         }
     }
     
-    // Based on https://www.youtube.com/watch?v=FMqX628vE1c
+    // Implements UICollectionViewDelegateFlowLayout protocol
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = calculateWidth()
+        return CGSize(width: width, height: width)
+    }
+    
+    // Implements UICollectionViewDelegateFlowLayout protocol
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+    }
+    
+    // Implements UICollectionViewDelegateFlowLayout protocol
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.size.width * 0.3, height: view.frame.size.height * 0.25)
+    }
+    
+    /**
+     Dynamically calculate the width of each Post cell.
+     
+     - returns:
+        A CGFloat of the needed width per CollectionView cell.
+     
+     Determines width of individual cells needed to fill each row, based on an estimate of the cell width and the number of cells that
+     can fit per row.
+     */
     func calculateWidth() -> CGFloat {
+        // Based on https://www.youtube.com/watch?v=FMqX628vE1c
         let estimateWidth = CGFloat(estimatedWidth)
         let cellCount = floor(CGFloat(view.frame.size.width / estimateWidth))
         

@@ -13,6 +13,9 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     
     let data = ["data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8"]
     
+    private let widthMultiplier = CGFloat(0.15)
+    private let heightMultplier = CGFloat(0.6)
+    
     private let categoryCellIdentifier = "CategoryCell"
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,8 +84,8 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width * 0.15
-        let height = collectionView.frame.height * (0.6)
+        let width = collectionView.frame.width * widthMultiplier
+        let height = collectionView.frame.height * heightMultplier
         return CGSize(width: width, height: height)
     }
     
@@ -94,6 +97,8 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
 }
 
 class CategoryCell: UICollectionViewCell {
+    
+    private let multiplier = CGFloat(0.75)
     
     var categoryImageViewWidthConstraintToHeight: NSLayoutConstraint?
     var categoryImageViewHeightConstraintToHeight: NSLayoutConstraint?
@@ -134,11 +139,11 @@ class CategoryCell: UICollectionViewCell {
 
         categoryImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
 
-        categoryImageViewWidthConstraintToHeight = categoryImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.75)
-        categoryImageViewHeightConstraintToHeight = categoryImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.75)
+        categoryImageViewWidthConstraintToHeight = categoryImageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: multiplier)
+        categoryImageViewHeightConstraintToHeight = categoryImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: multiplier)
         
-        categoryImageViewWidthConstraintToWidth = categoryImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75)
-        categoryImageViewHeightConstraintToWidth = categoryImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75)
+        categoryImageViewWidthConstraintToWidth = categoryImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: multiplier)
+        categoryImageViewHeightConstraintToWidth = categoryImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: multiplier)
         
         categoryImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         categoryLabel.topAnchor.constraint(equalTo:categoryImageView.bottomAnchor).isActive = true
@@ -147,11 +152,20 @@ class CategoryCell: UICollectionViewCell {
 
     }
     
+    /**
+     Updates constraints to use screen orientation's frame anchors.
+     
+     In order to achieve a circular image to display in the cell, the width and height must be set to the same value.
+     Furthermore, when the screen orientation changes it is necessary to update constraints so that they conform to
+     the new orientation's frame.
+     
+     After the screen changes:
+        - If the width is greater than the height, then use the cell's height anchor to keep the image within bounds.
+        - Otherwise, use the cell's width anchor to keep the image within bounds
+     */
     override func updateConstraints() {
-        super.updateConstraints()
-
-        let width = frame.width * 0.75
-        let height = frame.height * 0.75
+        let width = frame.width * multiplier
+        let height = frame.height * multiplier
         
         if (width > height) {
             categoryImageView.frame.size.width = height
@@ -160,8 +174,6 @@ class CategoryCell: UICollectionViewCell {
             categoryImageViewWidthConstraintToHeight?.isActive = true
             categoryImageViewHeightConstraintToWidth?.isActive = false
             categoryImageViewWidthConstraintToWidth?.isActive = false
-            
-            
         } else {
             categoryImageView.frame.size.width = width
             categoryImageView.frame.size.height = width
@@ -170,6 +182,8 @@ class CategoryCell: UICollectionViewCell {
             categoryImageViewHeightConstraintToWidth?.isActive = true
             categoryImageViewWidthConstraintToWidth?.isActive = true
         }
+
+        super.updateConstraints()
 
     }
     
