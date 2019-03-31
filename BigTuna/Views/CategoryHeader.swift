@@ -11,7 +11,7 @@ import UIKit
 
 class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    let data = ["data1", "data2"]
+    let data = ["data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8"]
     
     private let categoryCellIdentifier = "CategoryCell"
     
@@ -36,6 +36,7 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     
     let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.alwaysBounceHorizontal = true
         collectionView.alwaysBounceVertical = false
@@ -61,9 +62,7 @@ class CategoryHeader: UICollectionViewCell, UICollectionViewDelegateFlowLayout, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let topInset = (collectionView.frame.height * 0.2)
-
-        return UIEdgeInsets(top: topInset, left: 14, bottom: 0, right: 14)
+        return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
     }
     
     // Conforms to protocol UICollectionViewDelegate
@@ -179,7 +178,6 @@ class CategoryCell: UICollectionViewCell {
 // Based on https://stackoverflow.com/a/37259630
 extension UIImageView {
     func setRounded() {
-        print("WIDTH AFTER: \(self.frame.size.width)")
         self.layer.cornerRadius = self.frame.size.width/2
         self.layer.masksToBounds = true
         self.clipsToBounds = true
