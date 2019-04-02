@@ -11,7 +11,8 @@ import Alamofire
 import Kingfisher
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    var primaryStackView = UIStackView()
+    var primaryStackView: UIStackView!;
+    var collectionView: UICollectionView!;
     
     var posts = Array<Post>();
     var user: User = User(userName: "", fullName: "", profilePicture: UIImage(), followers: Array<User>(), posts: Array<Post>(), description: "");
@@ -95,9 +96,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath);
-        let imageView = UIImageView.init();
-        imageView.kf.setImage(with: self.posts[indexPath.item].postImageLink);
-        myCell.addSubview(imageView);
+        //let imageView = UIImageView.init();
+        //let imageView = UIImageView();
+        
+        //imageView.kf.setImage(with: self.posts[indexPath.item].postImageLink);
+        //myCell.addSubview(imageView);
         myCell.backgroundColor = UIColor.gray;
         return myCell;
     }
@@ -132,6 +135,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         //how to size a ui label
         let userProfileIconView = UIImageView();
         userProfileIconView.backgroundColor = .green; //debug
+        
+        let loadUrl = self.posts[0].postImageLink;
+        userProfileIconView.kf.setImage(with: loadUrl);
+        
         let userUserNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
         userUserNameView.backgroundColor = .black; //debug
         let userFullNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
@@ -152,20 +159,24 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.itemSize = CGSize(width: 150, height: 150)
         
-        let myCollectionView = UICollectionView(frame: CGRect(x: 10, y: 210, width: 300, height: 300), collectionViewLayout: layout); //todo resizable frame
+        
+        let myCollectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout); //todo resizable frame
+        myCollectionView.backgroundColor = UIColor.blue;
         myCollectionView.dataSource = self as UICollectionViewDataSource
         myCollectionView.delegate = self as UICollectionViewDelegate
         myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
-        myCollectionView.backgroundColor = UIColor.blue
-        
+        self.collectionView = myCollectionView;
         
         let profileInfoStackView = UIStackView();
         profileInfoStackView.axis = .vertical;
+        profileInfoStackView.distribution = .equalSpacing;
+        profileInfoStackView.alignment = .fill;
         
         let profilePictureAndUserInfoStackView = UIStackView();
         profilePictureAndUserInfoStackView.axis = .horizontal;
+        profilePictureAndUserInfoStackView.alignment = .center;
         
         let profileNameAndDescriptionView = UIStackView();
         profileNameAndDescriptionView.axis = .vertical;
@@ -177,6 +188,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let locationAndPostView = UIStackView();
         locationAndPostView.axis = .horizontal;
+        locationAndPostView.alignment = .center;
         locationAndPostView.addArrangedSubview(userLocationView);
         locationAndPostView.addArrangedSubview(userPostCountView);
         
@@ -188,29 +200,65 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             myCollectionView
             ]);
         
-        self.view.addSubview(primaryStackView);
+        view.addSubview(primaryStackView);
         
         self.setViewProperties();
         
         //TODO
-        userProfileIconView.contentMode = .scaleAspectFit;
+        userProfileIconView.contentMode = .scaleAspectFill;
         userProfileIconView.widthAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.widthAnchor, multiplier: 0.25).isActive = true;
-        //userProfileIconView.heightAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.heightAnchor).isActive = true;
+        userProfileIconView.heightAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.heightAnchor, multiplier: 0.2).isActive = true;
     }
     
     func setViewProperties() {
         primaryStackView.translatesAutoresizingMaskIntoConstraints = false
         primaryStackView.axis = .vertical
         primaryStackView.alignment = .center
-        primaryStackView.distribution = .fillProportionally
+        primaryStackView.backgroundColor = .purple;
+        primaryStackView.distribution = .fill;
         
         primaryStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        primaryStackView.heightAnchor.constraint(equalTo:view.safeAreaLayoutGuide.heightAnchor).isActive = true
-        primaryStackView.widthAnchor.constraint(equalTo:view.safeAreaLayoutGuide.widthAnchor).isActive = true
+        primaryStackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor).isActive = true
+        primaryStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
         primaryStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         primaryStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         primaryStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        primaryStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        primaryStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false;
+        //collectionView.centerXAnchor.constraint(equalTo: primaryStackView.centerXAnchor).isActive = true;
+        collectionView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.7).isActive = true;
+        collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true;
+        
+        let profileInfoStackView = primaryStackView.subviews[0];
+        profileInfoStackView.translatesAutoresizingMaskIntoConstraints = false;
+        //profileInfoStackView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.3).isActive = true;
+        
+        
+        let profilePictureAndUserInfoStackView = profileInfoStackView.subviews[0];
+        profilePictureAndUserInfoStackView.translatesAutoresizingMaskIntoConstraints = false;
+        //profilePictureAndUserInfoStackView.heightAnchor.constraint(equalTo: profileInfoStackView.heightAnchor, multiplier: 0.7).isActive = true;
+        let profileNameAndDescriptionView = profilePictureAndUserInfoStackView.subviews[0];
+        profileNameAndDescriptionView.translatesAutoresizingMaskIntoConstraints = false;
+        
+        let locationAndPostView = profileInfoStackView.subviews[1];
+        locationAndPostView.translatesAutoresizingMaskIntoConstraints = false;
+        locationAndPostView.heightAnchor.constraint(equalTo: profileInfoStackView.heightAnchor, multiplier: 0.3).isActive = true;
+        
+        
+        let userProfileIconView = profilePictureAndUserInfoStackView.subviews[0];
+        
+        
+        //profileInfoStackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true;
+        
+        /*
+        NSLayoutConstraint.activate([
+            self.collectionView.topAnchor.constraint(equalTo: primaryStackView.topAnchor),
+            self.collectionView.bottomAnchor.constraint(equalTo: primaryStackView.bottomAnchor),
+            self.collectionView.leadingAnchor.constraint(equalTo: primaryStackView.leadingAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: primaryStackView.trailingAnchor),
+            ])
+         */
     }
     
     /*
