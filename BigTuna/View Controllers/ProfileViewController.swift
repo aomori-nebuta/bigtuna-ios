@@ -17,6 +17,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     var posts = Array<Post>();
     var user: User = User(userName: "", fullName: "", profilePicture: UIImage(), followers: Array<User>(), posts: Array<Post>(), description: "");
     
+    let profilePostCellIdentifer: String = "profilePostCell";
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,14 +96,25 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return self.posts.count;
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: 50, height: 50); //TODO constants for size
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath);
-        //let imageView = UIImageView.init();
-        //let imageView = UIImageView();
+        let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: profilePostCellIdentifer, for: indexPath);
         
-        //imageView.kf.setImage(with: self.posts[indexPath.item].postImageLink);
-        //myCell.addSubview(imageView);
-        myCell.backgroundColor = UIColor.gray;
+        let imageURL = self.posts[indexPath.item].postImageLink;
+        let imageView = UIImageView();
+        imageView.kf.setImage(with: imageURL);
+        
+        myCell.contentView.addSubview(imageView);
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false;
+        imageView.heightAnchor.constraint(equalTo: myCell.contentView.heightAnchor).isActive = true;
+        imageView.widthAnchor.constraint(equalTo: myCell.contentView.widthAnchor).isActive = true;
+        imageView.centerXAnchor.constraint(equalTo: myCell.contentView.centerXAnchor).isActive = true;
+        imageView.centerYAnchor.constraint(equalTo: myCell.contentView.centerYAnchor).isActive = true;
+        
         return myCell;
     }
     
@@ -123,31 +136,37 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let updatedAt = formatter.date(from: updatedAtString);
         let images = postData["items"] as? Array<[String: Any]> ?? [];
         let previewImageURL = images[0]["imageUri"] as? String ?? "";//TODO default white when no images
-        //let url = URL(string: previewImageURL + ".jpg"); //TODO get correct extension properly
-        let url = URL(string: "https://d17fnq9dkz9hgj.cloudfront.net/breed-uploads/2018/09/dog-landing-hero-lg.jpg");
+        let url = URL(string: previewImageURL); //TODO get correct extension properly
         let post = Post(uploader: self.user, recommended: recommended, postImageLink: url, priceRange: PriceRange(rawValue: priceRange), menuItems: menuItems, tags: tags, rating: Rating(rawValue: rating), description: description, uploadDate: createdAt, lastEdited: updatedAt); //TODO handle when created/updated are null
         
         return post;
     }
     
     func displayUI() {
-        //https://riptutorial.com/ios/example/1110/create-a-uilabel
-        //how to size a ui label
         let userProfileIconView = UIImageView();
         userProfileIconView.backgroundColor = .green; //debug
         
-        let loadUrl = self.posts[0].postImageLink;
+        let loadUrl = self.posts[0].postImageLink; //TODO actually use user profile URL
         userProfileIconView.kf.setImage(with: loadUrl);
         
         let userUserNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
         userUserNameView.backgroundColor = .black; //debug
         let userFullNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userFullNameView.font = userFullNameView.font.withSize(24); //TODO constants
+        userFullNameView.sizeToFit();
         userFullNameView.backgroundColor = .gray; //debug
         let userDescriptionView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userDescriptionView.sizeToFit();
         userDescriptionView.backgroundColor = .blue; //debug
-        let userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        let userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
+        userLocationView.textAlignment = .right;
+        userLocationView.font = userLocationView.font.withSize(20); //TODO constants
+        userLocationView.sizeToFit();
         userLocationView.backgroundColor = .yellow; //debug
-        let userPostCountView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        let userPostCountView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
+        userPostCountView.textAlignment = .left;
+        userPostCountView.font = userPostCountView.font.withSize(20); //TODO constants
+        userPostCountView.sizeToFit();
         userPostCountView.backgroundColor = .orange; //debug
         
         userUserNameView.text = user.userName;
@@ -158,25 +177,27 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 150, height: 150)
-        
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 5); //TODO remove hardcode
+        layout.itemSize = CGSize(width: 150, height: 150); //TODO remove hardcode
+        layout.minimumInteritemSpacing = 0;
+        layout.minimumLineSpacing = 0;
         
         let myCollectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout); //todo resizable frame
         myCollectionView.backgroundColor = UIColor.blue;
         myCollectionView.dataSource = self as UICollectionViewDataSource
         myCollectionView.delegate = self as UICollectionViewDelegate
-        myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
+        myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: profilePostCellIdentifer)
         self.collectionView = myCollectionView;
         
         let profileInfoStackView = UIStackView();
         profileInfoStackView.axis = .vertical;
-        profileInfoStackView.distribution = .equalSpacing;
+        profileInfoStackView.distribution = .equalCentering;
         profileInfoStackView.alignment = .fill;
         
         let profilePictureAndUserInfoStackView = UIStackView();
         profilePictureAndUserInfoStackView.axis = .horizontal;
         profilePictureAndUserInfoStackView.alignment = .center;
+        profilePictureAndUserInfoStackView.spacing = 15;
         
         let profileNameAndDescriptionView = UIStackView();
         profileNameAndDescriptionView.axis = .vertical;
@@ -189,6 +210,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let locationAndPostView = UIStackView();
         locationAndPostView.axis = .horizontal;
         locationAndPostView.alignment = .center;
+        locationAndPostView.distribution = .fill;
+        locationAndPostView.spacing = 5;
         locationAndPostView.addArrangedSubview(userLocationView);
         locationAndPostView.addArrangedSubview(userPostCountView);
         
@@ -226,18 +249,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         primaryStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false;
-        //collectionView.centerXAnchor.constraint(equalTo: primaryStackView.centerXAnchor).isActive = true;
         collectionView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.7).isActive = true;
         collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true;
         
         let profileInfoStackView = primaryStackView.subviews[0];
         profileInfoStackView.translatesAutoresizingMaskIntoConstraints = false;
-        //profileInfoStackView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.3).isActive = true;
-        
+        profileInfoStackView.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor, multiplier: 0.8).isActive = true;
         
         let profilePictureAndUserInfoStackView = profileInfoStackView.subviews[0];
         profilePictureAndUserInfoStackView.translatesAutoresizingMaskIntoConstraints = false;
-        //profilePictureAndUserInfoStackView.heightAnchor.constraint(equalTo: profileInfoStackView.heightAnchor, multiplier: 0.7).isActive = true;
         let profileNameAndDescriptionView = profilePictureAndUserInfoStackView.subviews[0];
         profileNameAndDescriptionView.translatesAutoresizingMaskIntoConstraints = false;
         
@@ -245,20 +265,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         locationAndPostView.translatesAutoresizingMaskIntoConstraints = false;
         locationAndPostView.heightAnchor.constraint(equalTo: profileInfoStackView.heightAnchor, multiplier: 0.3).isActive = true;
         
-        
-        let userProfileIconView = profilePictureAndUserInfoStackView.subviews[0];
-        
-        
-        //profileInfoStackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true;
-        
-        /*
-        NSLayoutConstraint.activate([
-            self.collectionView.topAnchor.constraint(equalTo: primaryStackView.topAnchor),
-            self.collectionView.bottomAnchor.constraint(equalTo: primaryStackView.bottomAnchor),
-            self.collectionView.leadingAnchor.constraint(equalTo: primaryStackView.leadingAnchor),
-            self.collectionView.trailingAnchor.constraint(equalTo: primaryStackView.trailingAnchor),
-            ])
-         */
+        let userProfileIconView = profilePictureAndUserInfoStackView.subviews[0];//TODO constraints
     }
     
     /*
