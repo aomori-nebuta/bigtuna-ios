@@ -13,6 +13,9 @@ extension UILabel {
     // Based on https://stackoverflow.com/a/47307499
     @objc var substituteFontName : String {
         get { return self.font.fontName }
-        set { self.font = UIFont(name: newValue, size: self.font.pointSize) }
+        set {
+            self.font = UIFont(name: newValue, size: self.font.pointSize)
+            self.adjustsFontSizeToFitWidth = true
+        }
     }
 }
