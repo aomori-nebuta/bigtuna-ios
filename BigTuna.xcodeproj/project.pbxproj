@@ -14,8 +14,12 @@
 		3300B61621E287D500259B48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3300B61421E287D500259B48 /* LaunchScreen.storyboard */; };
 		3300B62121E287D500259B48 /* BigTunaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62021E287D500259B48 /* BigTunaTests.swift */; };
 		3300B62C21E287D500259B48 /* BigTunaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300B62B21E287D500259B48 /* BigTunaUITests.swift */; };
+		330ED3F4225144B300164CA6 /* Aaargh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 330ED3F3225144B300164CA6 /* Aaargh.ttf */; };
 		331B192221F6B11300CD39FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 331B192121F6B11200CD39FA /* GoogleService-Info.plist */; };
 		333DC3CC21F16C4800873A80 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333DC3CB21F16C4800873A80 /* LoginViewController.swift */; };
+		334542C92246CCC50088E4F3 /* CategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334542C82246CCC50088E4F3 /* CategoryHeader.swift */; };
+		33AC56C42251572D00D5C399 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AC56C32251572D00D5C399 /* FontExtension.swift */; };
+		33BC9B6C2247D12E007D3FEC /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BC9B6B2247D12E007D3FEC /* PostCell.swift */; };
 		33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */; };
 		33FEE07521E43C8400269F35 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07421E43C8400269F35 /* Post.swift */; };
 		33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FEE07621E43F8700269F35 /* Restaurant.swift */; };
@@ -61,8 +65,12 @@
 		3300B62721E287D500259B48 /* BigTunaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BigTunaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3300B62B21E287D500259B48 /* BigTunaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigTunaUITests.swift; sourceTree = "<group>"; };
 		3300B62D21E287D500259B48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		330ED3F3225144B300164CA6 /* Aaargh.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Aaargh.ttf; path = ../../../../Downloads/Aaargh.ttf; sourceTree = "<group>"; };
 		331B192121F6B11200CD39FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		333DC3CB21F16C4800873A80 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		334542C82246CCC50088E4F3 /* CategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeader.swift; sourceTree = "<group>"; };
+		33AC56C32251572D00D5C399 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
+		33BC9B6B2247D12E007D3FEC /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		33FEE07421E43C8400269F35 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		33FEE07621E43F8700269F35 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
@@ -138,9 +146,8 @@
 		3300B60A21E287D400259B48 /* BigTuna */ = {
 			isa = PBXGroup;
 			children = (
-				33F73E5E21E2DC38007A5082 /* Other Controllers */,
+				330ED3F22251448500164CA6 /* Fonts */,
 				33F73E5D21E2DC2A007A5082 /* Models */,
-				33F73E5C21E2DC17007A5082 /* Views */,
 				33F73E5B21E2DBF8007A5082 /* View Controllers */,
 				3300B60B21E287D400259B48 /* AppDelegate.swift */,
 				3300B60F21E287D400259B48 /* Main.storyboard */,
@@ -170,23 +177,36 @@
 			path = BigTunaUITests;
 			sourceTree = "<group>";
 		};
+		330ED3F02251095200164CA6 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				334542C82246CCC50088E4F3 /* CategoryHeader.swift */,
+				33BC9B6B2247D12E007D3FEC /* PostCell.swift */,
+				6352296122100C9F00CADE35 /* DiscoverViewController.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		330ED3F22251448500164CA6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				330ED3F3225144B300164CA6 /* Aaargh.ttf */,
+				33AC56C32251572D00D5C399 /* FontExtension.swift */,
+			);
+			name = Fonts;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		33F73E5B21E2DBF8007A5082 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				330ED3F02251095200164CA6 /* Discover */,
 				63D578BD2241FAB800C6087E /* Login */,
 				33F73E5F21E2DD6A007A5082 /* MainTabBarController.swift */,
 				6352295D220FC22400CADE35 /* CameraViewController.swift */,
 				6352295F220FFB0500CADE35 /* ProfileViewController.swift */,
-				6352296122100C9F00CADE35 /* DiscoverViewController.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		33F73E5C21E2DC17007A5082 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		33F73E5D21E2DC2A007A5082 /* Models */ = {
@@ -197,13 +217,6 @@
 				33FEE07821E4451700269F35 /* User.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		33F73E5E21E2DC38007A5082 /* Other Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Other Controllers";
 			sourceTree = "<group>";
 		};
 		63D578BD2241FAB800C6087E /* Login */ = {
@@ -352,6 +365,7 @@
 				3300B61621E287D500259B48 /* LaunchScreen.storyboard in Resources */,
 				331B192221F6B11300CD39FA /* GoogleService-Info.plist in Resources */,
 				3300B61321E287D500259B48 /* Assets.xcassets in Resources */,
+				330ED3F4225144B300164CA6 /* Aaargh.ttf in Resources */,
 				3300B61121E287D400259B48 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,6 +488,7 @@
 			files = (
 				33F73E6021E2DD6A007A5082 /* MainTabBarController.swift in Sources */,
 				63D578C12242044D00C6087E /* LoginInputViewBuilder.swift in Sources */,
+				33AC56C42251572D00D5C399 /* FontExtension.swift in Sources */,
 				33FEE07721E43F8700269F35 /* Restaurant.swift in Sources */,
 				333DC3CC21F16C4800873A80 /* LoginViewController.swift in Sources */,
 				33FEE07921E4451700269F35 /* User.swift in Sources */,
@@ -483,8 +498,10 @@
 				63E065762248355800C2402A /* LoginButtonViewBuilder.swift in Sources */,
 				6352296222100C9F00CADE35 /* DiscoverViewController.swift in Sources */,
 				63522960220FFB0500CADE35 /* ProfileViewController.swift in Sources */,
+				33BC9B6C2247D12E007D3FEC /* PostCell.swift in Sources */,
 				63D578BF2241FB8C00C6087E /* LoginImageViewBuilder.swift in Sources */,
 				3300B60C21E287D400259B48 /* AppDelegate.swift in Sources */,
+				334542C92246CCC50088E4F3 /* CategoryHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
