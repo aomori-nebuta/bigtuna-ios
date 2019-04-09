@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import CoreLocation
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     var primaryStackView: UIStackView!;
@@ -22,7 +23,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     var userPostCountView: UILabel!;
     
     var posts = Array<Post>();
-    var user: User = User(userName: "", fullName: "", profilePicture: UIImage(), followers: Array<User>(), posts: Array<Post>(), description: "");
+    var user: User = User(userName: "", fullName: "", location: "", profilePicture: UIImage(), followers: Array<User>(), posts: Array<Post>(), description: "");
     
     let profilePostCellIdentifer: String = "profilePostCell";
     
@@ -70,6 +71,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
+    //TODO error handling
+    //TODO handle international addresses
+    func parseLocationFromPlacemark(placemarks: [CLPlacemark]?, error: Error?) {
+        let placemark: CLPlacemark = placemarks?[0] as! CLPlacemark;
+        let city = placemark.locality;
+        let state = placemark.administrativeArea;
+        let userLocationString = "\(city ?? "Unknown"), \(state ?? "Unknown")";
+        
+        user.location = userLocationString;
+        
+        self.updateUserProfileLocation();
+    }
+    
+    func geocode(latitude: Double, longitude: Double, completion: @escaping (_ placemark: [CLPlacemark]?, _ error: Error?) -> Void)  {
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: latitude, longitude: longitude), completionHandler: completion)
+    }
+    
     func fetchUserInfo(userInfoURL: String) {
         Alamofire.request(
             userInfoURL,
@@ -84,11 +102,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                     self.user.description = (JSON["description"] as! String);
                     self.user.fullName = (JSON["fullName"] as! String);
                     //TODO profileURI
-                    //TODO location
-                    //let location = JSON["location"] as! [String: Any];
-                    //TODO set user here; or call a function like parseUser
+                    let location = JSON["location"] as! [String: Any];
+                    let coordinates = location["coordinates"] as! [Double];
+                    
+                    self.geocode(latitude: coordinates[1], longitude: coordinates[0], completion: self.parseLocationFromPlacemark);
+                    
                     self.view.backgroundColor = .red; //debug
-                    print("fetchuserinfo finished");
                     self.displayUserInfo();
                     
                     break;
@@ -100,7 +119,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func fetchUserPosts(userPostsURL: String) {
-        print("fetchuserposts: ", userPostsURL);
         Alamofire.request(
             userPostsURL,
             method: .get
@@ -115,7 +133,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                         
                         self.posts.append(userPost);
                     }
-                    print("fetchuserposts finished: ", JSON);
                     self.displayUserPosts();
                     
                     break;
@@ -130,8 +147,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return self.posts.count;
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: 50, height: 50); //TODO constants for size
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numItemsPerRow: Int = 3; //TODO variable
+        let size: Int = Int(Int(UIScreen.main.bounds.size.width) / numItemsPerRow);
+        
+        return CGSize(width: size, height: size);
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -183,26 +203,27 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return post;
     }
     
+    func updateUserProfileLocation() {
+        userLocationView.text = user.location;
+    }
+    
     func displayUserInfo() {
-        print("displayuserinfo");
         let loadUrl = "https://www.searchpng.com/wp-content/uploads/2019/02/Happy-Face-Emoji-PNG-Image-1024x1024.png"; //TODO actually use user profile URL
         Alamofire.request(loadUrl).responseImage { response in
             if let image = response.result.value {
                 self.userProfileIconView.image = image;
                 self.userProfileIconView.backgroundColor = .green; //debug
-                print("loaded user profile image");
             }
         }
         
         userUserNameView.text = user.userName;
         userFullNameView.text = user.fullName;
         userDescriptionView.text = user.description;
-        userLocationView.text = "Seattle, Washington"; //TODO parse later
+        userLocationView.text = user.location;
     }
     
     func displayUserPosts() {
-        print("displayuserposts");
-        userPostCountView.text = String(self.posts.count) + " posts";
+        userPostCountView.text = "\(String(self.posts.count)) posts";
         
         collectionView.reloadData();
     }
@@ -232,7 +253,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 5); //TODO remove hardcode
-        layout.itemSize = CGSize(width: 150, height: 150); //TODO remove hardcode
         layout.minimumInteritemSpacing = 0;
         layout.minimumLineSpacing = 0;
         

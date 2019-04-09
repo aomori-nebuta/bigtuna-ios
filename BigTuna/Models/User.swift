@@ -12,6 +12,7 @@ import UIKit
 struct User {
     var userName: String
     var fullName: String
+    var location: String
     
     var profilePicture: UIImage
     
