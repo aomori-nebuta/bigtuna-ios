@@ -8,11 +8,18 @@
 
 import UIKit
 import Alamofire
-import Kingfisher
+import AlamofireImage
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     var primaryStackView: UIStackView!;
     var collectionView: UICollectionView!;
+    
+    var userProfileIconView: UIImageView!;
+    var userUserNameView: UILabel!;
+    var userFullNameView: UILabel!;
+    var userDescriptionView: UILabel!;
+    var userLocationView: UILabel!;
+    var userPostCountView: UILabel!;
     
     var posts = Array<Post>();
     var user: User = User(userName: "", fullName: "", profilePicture: UIImage(), followers: Array<User>(), posts: Array<Post>(), description: "");
@@ -22,55 +29,82 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //TODO, wrap all of this data fetching in a function
-        
-        //TODO
-        //https://www.iconfinder.com/icons/211605/contact_icon
-        //profileIcon.image =
-        
+        displayUI();
+        loadProfile();
+    }
+    
+    func getUserBaseURL() -> String {
         //TODO, https requests only in the future
         //see https://stackoverflow.com/questions/32712155/app-transport-security-policy-requires-the-use-of-a-secure-connection-ios-9 and undo
         let hostName = "ec2-18-217-215-145.us-east-2.compute.amazonaws.com"; //TODO
         let port = "8010"; //TODO
         let baseURL = "http://" + hostName + ":" + port; //TODO
-        let userId = "5c8727ba2556d0e49c820591"; //TODO
-        let userInfoUrl = baseURL + "/users/" + userId;
-        let userPostsURL = userInfoUrl + "/posts";
         
-        // Do any additional setup after loading the view.
-        Alamofire.request(
-            userInfoUrl,
-            method: .get
-        ).validate()
-        .responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                let JSON = data as! [String: Any];
-                //TODO guard
-                self.user.userName = (JSON["userName"] as! String);
-                self.user.description = (JSON["description"] as! String);
-                self.user.fullName = (JSON["fullName"] as! String);
-                //TODO profileURI
-                //TODO location
-                //let location = JSON["location"] as! [String: Any];
-                //TODO set user here; or call a function like parseUser
-                self.view.backgroundColor = .red; //debug
-                self.getUserPosts(userPostsURL: userPostsURL);
-                
-                break;
-            case .failure(let error):
-                print(error);
-                break;
-            }
-        }
-        
+        return baseURL;
     }
     
-    func getUserPosts(userPostsURL: String) {
+    func getUserProfileURL() -> String {
+        let baseURL = getUserBaseURL();
+        let userId = "5c8727ba2556d0e49c820591"; //TODO
+        let userInfoURL = baseURL + "/users/" + userId;
+        
+        return userInfoURL;
+    }
+    
+    func getUserPostURL() -> String {
+        let userInfoUrl =  getUserProfileURL();
+        let userPostsURL = userInfoUrl + "/posts";
+        
+        return userPostsURL;
+    }
+    
+    func loadProfile() {
+        //TODO
+        //https://www.iconfinder.com/icons/211605/contact_icon
+        DispatchQueue.global(qos: .utility).async {
+            self.fetchUserInfo(userInfoURL: self.getUserProfileURL());
+        }
+        
+        DispatchQueue.global(qos: .utility).async {
+            self.fetchUserPosts(userPostsURL: self.getUserPostURL());
+        }
+    }
+    
+    func fetchUserInfo(userInfoURL: String) {
+        Alamofire.request(
+            userInfoURL,
+            method: .get
+            ).validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    let JSON = data as! [String: Any];
+                    //TODO guard
+                    self.user.userName = (JSON["userName"] as! String);
+                    self.user.description = (JSON["description"] as! String);
+                    self.user.fullName = (JSON["fullName"] as! String);
+                    //TODO profileURI
+                    //TODO location
+                    //let location = JSON["location"] as! [String: Any];
+                    //TODO set user here; or call a function like parseUser
+                    self.view.backgroundColor = .red; //debug
+                    print("fetchuserinfo finished");
+                    self.displayUserInfo();
+                    
+                    break;
+                case .failure(let error):
+                    print(error);
+                    break;
+                }
+        }
+    }
+    
+    func fetchUserPosts(userPostsURL: String) {
+        print("fetchuserposts: ", userPostsURL);
         Alamofire.request(
             userPostsURL,
             method: .get
-            ).validate()
+            ).validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
                 case .success(let data):
@@ -81,8 +115,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                         
                         self.posts.append(userPost);
                     }
-                    
-                    self.displayUI();
+                    print("fetchuserposts finished: ", JSON);
+                    self.displayUserPosts();
                     
                     break;
                 case .failure(let error):
@@ -105,7 +139,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let imageURL = self.posts[indexPath.item].postImageLink;
         let imageView = UIImageView();
-        imageView.kf.setImage(with: imageURL);
+        
+        Alamofire.request(imageURL!).responseImage { response in
+            if let image = response.result.value {
+                DispatchQueue.main.async {
+                    imageView.image = image;
+                }
+            }
+        }
         
         myCell.contentView.addSubview(imageView);
         
@@ -142,38 +183,51 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return post;
     }
     
-    func displayUI() {
-        let userProfileIconView = UIImageView();
-        userProfileIconView.backgroundColor = .green; //debug
-        
-        let loadUrl = self.posts[0].postImageLink; //TODO actually use user profile URL
-        userProfileIconView.kf.setImage(with: loadUrl);
-        
-        let userUserNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
-        userUserNameView.backgroundColor = .black; //debug
-        let userFullNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
-        userFullNameView.font = userFullNameView.font.withSize(24); //TODO constants
-        userFullNameView.sizeToFit();
-        userFullNameView.backgroundColor = .gray; //debug
-        let userDescriptionView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
-        userDescriptionView.sizeToFit();
-        userDescriptionView.backgroundColor = .blue; //debug
-        let userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
-        userLocationView.textAlignment = .right;
-        userLocationView.font = userLocationView.font.withSize(20); //TODO constants
-        userLocationView.sizeToFit();
-        userLocationView.backgroundColor = .yellow; //debug
-        let userPostCountView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
-        userPostCountView.textAlignment = .left;
-        userPostCountView.font = userPostCountView.font.withSize(20); //TODO constants
-        userPostCountView.sizeToFit();
-        userPostCountView.backgroundColor = .orange; //debug
+    func displayUserInfo() {
+        print("displayuserinfo");
+        let loadUrl = "https://www.searchpng.com/wp-content/uploads/2019/02/Happy-Face-Emoji-PNG-Image-1024x1024.png"; //TODO actually use user profile URL
+        Alamofire.request(loadUrl).responseImage { response in
+            if let image = response.result.value {
+                self.userProfileIconView.image = image;
+                self.userProfileIconView.backgroundColor = .green; //debug
+                print("loaded user profile image");
+            }
+        }
         
         userUserNameView.text = user.userName;
         userFullNameView.text = user.fullName;
         userDescriptionView.text = user.description;
         userLocationView.text = "Seattle, Washington"; //TODO parse later
+    }
+    
+    func displayUserPosts() {
+        print("displayuserposts");
         userPostCountView.text = String(self.posts.count) + " posts";
+        
+        collectionView.reloadData();
+    }
+    
+    func displayUI() {
+        //TOOD this first block must happen before displayUserInfo/posts or at least the initialization part of the block
+        userUserNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userUserNameView.backgroundColor = .black; //debug
+        userFullNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userFullNameView.font = userFullNameView.font.withSize(24); //TODO constants
+        userFullNameView.sizeToFit();
+        userFullNameView.backgroundColor = .gray; //debug
+        userDescriptionView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userDescriptionView.sizeToFit();
+        userDescriptionView.backgroundColor = .blue; //debug
+        userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
+        userLocationView.textAlignment = .right;
+        userLocationView.font = userLocationView.font.withSize(20); //TODO constants
+        userLocationView.sizeToFit();
+        userLocationView.backgroundColor = .yellow; //debug
+        userPostCountView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
+        userPostCountView.textAlignment = .left;
+        userPostCountView.font = userPostCountView.font.withSize(20); //TODO constants
+        userPostCountView.sizeToFit();
+        userPostCountView.backgroundColor = .orange; //debug
         
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -204,6 +258,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         profileNameAndDescriptionView.addArrangedSubview(userFullNameView);
         profileNameAndDescriptionView.addArrangedSubview(userDescriptionView);
         
+        userProfileIconView = UIImageView();
         profilePictureAndUserInfoStackView.addArrangedSubview(userProfileIconView);
         profilePictureAndUserInfoStackView.addArrangedSubview(profileNameAndDescriptionView);
         
@@ -265,7 +320,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         locationAndPostView.translatesAutoresizingMaskIntoConstraints = false;
         locationAndPostView.heightAnchor.constraint(equalTo: profileInfoStackView.heightAnchor, multiplier: 0.3).isActive = true;
         
-        let userProfileIconView = profilePictureAndUserInfoStackView.subviews[0];//TODO constraints
+        //let userProfileIconView = profilePictureAndUserInfoStackView.subviews[0];//TODO constraints
     }
     
     /*
