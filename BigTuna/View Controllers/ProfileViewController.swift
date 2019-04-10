@@ -271,22 +271,27 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         userUserNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
         userFullNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
         userFullNameView.font = userFullNameView.font.withSize(24); //TODO constants
+        userFullNameView.textColor = .darkGray;
         userFullNameView.sizeToFit();
         userDescriptionView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        userDescriptionView.textColor = .darkGray;
         userDescriptionView.sizeToFit();
         userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
         userLocationView.textAlignment = .right;
         userLocationView.font = userLocationView.font.withSize(20); //TODO constants
+        userLocationView.textColor = .darkGray;
         userLocationView.sizeToFit();
         userPostCountView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
         userPostCountView.textAlignment = .left;
         userPostCountView.font = userPostCountView.font.withSize(20); //TODO constants
+        userPostCountView.textColor = .darkGray;
         userPostCountView.sizeToFit();
         
         collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout());
         collectionView.dataSource = self as UICollectionViewDataSource
         collectionView.delegate = self as UICollectionViewDelegate
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: profilePostCellIdentifer)
+        collectionView.backgroundColor = .white;
         let collectionViewWrapper = UIView();
         
         
