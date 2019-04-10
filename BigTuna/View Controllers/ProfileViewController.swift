@@ -11,7 +11,28 @@ import Alamofire
 import AlamofireImage
 import CoreLocation
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+extension UIView {
+    enum ViewSide {
+        case Left, Right, Top, Bottom
+    }
+    
+    func addBorder(toSide side: ViewSide, withColor color: CGColor, andThickness thickness: CGFloat) {
+        
+        let border = CALayer()
+        border.backgroundColor = color
+        
+        switch side {
+        case .Left: border.frame = CGRect(x: frame.minX, y: frame.minY, width: thickness, height: frame.height); break
+        case .Right: border.frame = CGRect(x: frame.maxX, y: frame.minY, width: thickness, height: frame.height); break
+        case .Top: border.frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: thickness); break
+        case .Bottom: border.frame = CGRect(x: frame.minX, y: frame.maxY, width: frame.width, height: thickness); break
+        }
+        
+        layer.addSublayer(border)
+    }
+}
+
+class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var primaryStackView: UIStackView!;
     var collectionView: UICollectionView!;
     
@@ -26,6 +47,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     var user: User = User(userName: "", fullName: "", location: "", profilePicture: UIImage(), followers: Array<User>(), posts: Array<Post>(), description: "");
     
     let profilePostCellIdentifer: String = "profilePostCell";
+    
+    let ITEMS_PER_ROW: Int = 3;
+    let INTER_ITEM_SPACING: Float = 2.5;
+    let LINE_SPACING_FOR_SECTION: Float = 2.5;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,10 +173,19 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numItemsPerRow: Int = 3; //TODO variable
-        let size: Int = Int(Int(UIScreen.main.bounds.size.width) / numItemsPerRow);
+        let whiteSpace: Int = (ITEMS_PER_ROW - 1) * Int(INTER_ITEM_SPACING);
+        let spaceToDistribute: Int = Int(UIScreen.main.bounds.size.width) - whiteSpace;
+        let size: Int = spaceToDistribute/ITEMS_PER_ROW;
         
         return CGSize(width: size, height: size);
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(INTER_ITEM_SPACING);
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(LINE_SPACING_FOR_SECTION);
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -250,17 +284,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         userPostCountView.sizeToFit();
         userPostCountView.backgroundColor = .orange; //debug
         
-        
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 5); //TODO remove hardcode
-        layout.minimumInteritemSpacing = 0;
-        layout.minimumLineSpacing = 0;
-        
-        let myCollectionView = UICollectionView(frame: CGRect(), collectionViewLayout: layout); //todo resizable frame
+        let myCollectionView = UICollectionView(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout());
         myCollectionView.backgroundColor = UIColor.blue;
         myCollectionView.dataSource = self as UICollectionViewDataSource
         myCollectionView.delegate = self as UICollectionViewDelegate
         myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: profilePostCellIdentifer)
+        myCollectionView.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
         self.collectionView = myCollectionView;
         
         let profileInfoStackView = UIStackView();
@@ -292,6 +321,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         profileInfoStackView.addArrangedSubview(profilePictureAndUserInfoStackView);
         profileInfoStackView.addArrangedSubview(locationAndPostView);
+        profileInfoStackView.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
+        
+        //todo, put mycollectionview and profileinfostackview into UIView containers and add borders to these containers instead
         
         primaryStackView = UIStackView(arrangedSubviews: [
             profileInfoStackView,
