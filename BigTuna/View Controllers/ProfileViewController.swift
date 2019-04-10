@@ -292,8 +292,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.delegate = self as UICollectionViewDelegate
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: profilePostCellIdentifer)
         collectionView.backgroundColor = .white;
-        let collectionViewWrapper = UIView();
-        
         
         let profileInfoStackView = UIStackView();
         profileInfoStackView.axis = .vertical;
@@ -317,7 +315,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let locationAndPostView = UIStackView();
         locationAndPostView.axis = .horizontal;
         locationAndPostView.alignment = .center;
-        locationAndPostView.distribution = .fill;
+        locationAndPostView.distribution = .fillEqually;
         locationAndPostView.spacing = 5;
         locationAndPostView.addArrangedSubview(userLocationView);
         locationAndPostView.addArrangedSubview(userPostCountView);
