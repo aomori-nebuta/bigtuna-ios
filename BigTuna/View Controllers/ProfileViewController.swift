@@ -18,8 +18,9 @@ extension UIView {
     
     func addBorder(toSide side: ViewSide, withColor color: CGColor, andThickness thickness: CGFloat) {
         
-        let border = CALayer()
-        border.backgroundColor = color
+        let border = CALayer();
+        //border.backgroundColor = color
+        border.borderColor = color;
         
         switch side {
         case .Left: border.frame = CGRect(x: frame.minX, y: frame.minY, width: thickness, height: frame.height); break
@@ -28,7 +29,12 @@ extension UIView {
         case .Bottom: border.frame = CGRect(x: frame.minX, y: frame.maxY, width: frame.width, height: thickness); break
         }
         
+        print("frame.minX: ", frame.minX);
+        print("frame.maxY: ", frame.maxY);
+        print("frame.width: ", frame.width);
+        
         layer.addSublayer(border)
+        layer.masksToBounds = true;
     }
 }
 
@@ -132,7 +138,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                     
                     self.geocode(latitude: coordinates[1], longitude: coordinates[0], completion: self.parseLocationFromPlacemark);
                     
-                    self.view.backgroundColor = .red; //debug
                     self.displayUserInfo();
                     
                     break;
@@ -246,7 +251,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         Alamofire.request(loadUrl).responseImage { response in
             if let image = response.result.value {
                 self.userProfileIconView.image = image;
-                self.userProfileIconView.backgroundColor = .green; //debug
             }
         }
         
@@ -265,32 +269,26 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     func displayUI() {
         //TOOD this first block must happen before displayUserInfo/posts or at least the initialization part of the block
         userUserNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
-        userUserNameView.backgroundColor = .black; //debug
         userFullNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
         userFullNameView.font = userFullNameView.font.withSize(24); //TODO constants
         userFullNameView.sizeToFit();
-        userFullNameView.backgroundColor = .gray; //debug
         userDescriptionView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
         userDescriptionView.sizeToFit();
-        userDescriptionView.backgroundColor = .blue; //debug
         userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
         userLocationView.textAlignment = .right;
         userLocationView.font = userLocationView.font.withSize(20); //TODO constants
         userLocationView.sizeToFit();
-        userLocationView.backgroundColor = .yellow; //debug
         userPostCountView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
         userPostCountView.textAlignment = .left;
         userPostCountView.font = userPostCountView.font.withSize(20); //TODO constants
         userPostCountView.sizeToFit();
-        userPostCountView.backgroundColor = .orange; //debug
         
-        let myCollectionView = UICollectionView(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout());
-        myCollectionView.backgroundColor = UIColor.blue;
-        myCollectionView.dataSource = self as UICollectionViewDataSource
-        myCollectionView.delegate = self as UICollectionViewDelegate
-        myCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: profilePostCellIdentifer)
-        myCollectionView.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
-        self.collectionView = myCollectionView;
+        collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout());
+        collectionView.dataSource = self as UICollectionViewDataSource
+        collectionView.delegate = self as UICollectionViewDelegate
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: profilePostCellIdentifer)
+        let collectionViewWrapper = UIView();
+        
         
         let profileInfoStackView = UIStackView();
         profileInfoStackView.axis = .vertical;
@@ -321,13 +319,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         profileInfoStackView.addArrangedSubview(profilePictureAndUserInfoStackView);
         profileInfoStackView.addArrangedSubview(locationAndPostView);
-        profileInfoStackView.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
+        let profileInfoStackViewWrapper = UIView();
+        //profileInfoStackViewWrapper.addSubview(profileInfoStackView);
+        //profileInfoStackViewWrapper.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
         
         //todo, put mycollectionview and profileinfostackview into UIView containers and add borders to these containers instead
         
         primaryStackView = UIStackView(arrangedSubviews: [
-            profileInfoStackView,
-            myCollectionView
+            profileInfoStackView,//profileInfoStackViewWrapper,
+            collectionView
+            //collectionViewWrapper
             ]);
         
         view.addSubview(primaryStackView);
@@ -344,7 +345,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         primaryStackView.translatesAutoresizingMaskIntoConstraints = false
         primaryStackView.axis = .vertical
         primaryStackView.alignment = .center
-        primaryStackView.backgroundColor = .purple;
         primaryStackView.distribution = .fill;
         
         primaryStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
@@ -358,6 +358,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.translatesAutoresizingMaskIntoConstraints = false;
         collectionView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.7).isActive = true;
         collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true;
+        collectionView.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
         
         let profileInfoStackView = primaryStackView.subviews[0];
         profileInfoStackView.translatesAutoresizingMaskIntoConstraints = false;
