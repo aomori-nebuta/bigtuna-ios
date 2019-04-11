@@ -39,11 +39,11 @@ extension UIView {
 }
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    var headerView: HeaderView!;
     var primaryStackView: UIStackView!;
     var collectionView: UICollectionView!;
     
     var userProfileIconView: UIImageView!;
-    var userUserNameView: UILabel!;
     var userFullNameView: UILabel!;
     var userDescriptionView: UILabel!;
     var userLocationView: UILabel!;
@@ -254,7 +254,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
         }
         
-        userUserNameView.text = user.userName;
+        headerView.setUsername(userName: user.userName);
         userFullNameView.text = user.fullName;
         userDescriptionView.text = user.description;
         userLocationView.text = user.location;
@@ -268,23 +268,27 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func displayUI() {
         //TOOD this first block must happen before displayUserInfo/posts or at least the initialization part of the block
-        userUserNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
+        headerView = HeaderView();
+        
         userFullNameView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
-        userFullNameView.font = userFullNameView.font.withSize(24); //TODO constants
-        userFullNameView.textColor = .darkGray;
+        userFullNameView.font = userFullNameView.font.withSize(20); //TODO constants
+        userFullNameView.textColor = .gray;
         userFullNameView.sizeToFit();
+        //userFullNameView.backgroundColor = .green; //debug
         userDescriptionView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
-        userDescriptionView.textColor = .darkGray;
+        userDescriptionView.font = userDescriptionView.font.withSize(16);
+        userDescriptionView.textColor = .gray;
         userDescriptionView.sizeToFit();
+        //userDescriptionView.backgroundColor = .yellow; //debug
         userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
         userLocationView.textAlignment = .right;
-        userLocationView.font = userLocationView.font.withSize(20); //TODO constants
-        userLocationView.textColor = .darkGray;
+        userLocationView.font = userLocationView.font.withSize(18); //TODO constants
+        userLocationView.textColor = .gray;
         userLocationView.sizeToFit();
         userPostCountView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
         userPostCountView.textAlignment = .left;
-        userPostCountView.font = userPostCountView.font.withSize(20); //TODO constants
-        userPostCountView.textColor = .darkGray;
+        userPostCountView.font = userPostCountView.font.withSize(18); //TODO constants
+        userPostCountView.textColor = .gray;
         userPostCountView.sizeToFit();
         
         collectionView = UICollectionView(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout());
@@ -305,6 +309,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let profileNameAndDescriptionView = UIStackView();
         profileNameAndDescriptionView.axis = .vertical;
+        profileNameAndDescriptionView.distribution = .fillEqually;
+        profileNameAndDescriptionView.alignment = .fill;
         profileNameAndDescriptionView.addArrangedSubview(userFullNameView);
         profileNameAndDescriptionView.addArrangedSubview(userDescriptionView);
         
@@ -334,9 +340,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             //collectionViewWrapper
             ]);
         
+        view.addSubview(headerView);
         view.addSubview(primaryStackView);
         
-        self.setViewProperties();
+        print("subview count: ", view.subviews.count);
+        print("headerview: ", headerView.frame);
+        
+        setViewProperties();
+        headerView.applyViewProperties(view: view);
         
         //TODO
         userProfileIconView.contentMode = .scaleAspectFill;
@@ -351,15 +362,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         primaryStackView.distribution = .fill;
         
         primaryStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        primaryStackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor).isActive = true
         primaryStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
         primaryStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         primaryStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         primaryStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        primaryStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        primaryStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false;
-        collectionView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.7).isActive = true;
+        collectionView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.75).isActive = true;
         collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true;
         collectionView.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
         
@@ -371,6 +381,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         profilePictureAndUserInfoStackView.translatesAutoresizingMaskIntoConstraints = false;
         let profileNameAndDescriptionView = profilePictureAndUserInfoStackView.subviews[0];
         profileNameAndDescriptionView.translatesAutoresizingMaskIntoConstraints = false;
+        //profileNameAndDescriptionView.topAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.topAnchor).isActive = true;
+        //profileNameAndDescriptionView.bottomAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.bottomAnchor).isActive = true;
+        //profileNameAndDescriptionView.heightAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.heightAnchor).isActive = true;
         
         let locationAndPostView = profileInfoStackView.subviews[1];
         locationAndPostView.translatesAutoresizingMaskIntoConstraints = false;

@@ -28,6 +28,7 @@
 		63E065762248355800C2402A /* LoginButtonViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E065752248355800C2402A /* LoginButtonViewBuilder.swift */; };
 		63E06578224888C800C2402A /* LoginViewTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E06577224888C800C2402A /* LoginViewTags.swift */; };
 		7389D4E622251AD600FBF0CC /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7389D4E422251AD600FBF0CC /* Settings.storyboard */; };
+		73AA074D225EE9B400FEEDC0 /* HeaderViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AA074C225EE9B400FEEDC0 /* HeaderViewComponent.swift */; };
 		97FEF44E7A6BD8152B5374D4 /* Pods_BigTunaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C5789961E6E8EED16C1A4D /* Pods_BigTunaTests.framework */; };
 		C818F1D23040ED4321E939F4 /* Pods_BigTuna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D18FB294E020309461D4A8C /* Pods_BigTuna.framework */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		6D18FB294E020309461D4A8C /* Pods_BigTuna.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BigTuna.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71C5C9668976868A1C4CD487 /* Pods-BigTunaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaUITests/Pods-BigTunaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7389D4E522251AD600FBF0CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
+		73AA074C225EE9B400FEEDC0 /* HeaderViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeaderViewComponent.swift; path = BigTuna/HeaderViewComponent.swift; sourceTree = SOURCE_ROOT; };
 		945E7E2698530F943D2CA2D8 /* Pods-BigTunaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTunaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BigTunaUITests/Pods-BigTunaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		98C5789961E6E8EED16C1A4D /* Pods_BigTunaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BigTunaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5ACC75425C3A8DF104E1371 /* Pods-BigTuna.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BigTuna.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BigTuna/Pods-BigTuna.debug.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		33F73E5C21E2DC17007A5082 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				73AA074C225EE9B400FEEDC0 /* HeaderViewComponent.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				33FEE07921E4451700269F35 /* User.swift in Sources */,
 				6352295E220FC22400CADE35 /* CameraViewController.swift in Sources */,
 				63E06578224888C800C2402A /* LoginViewTags.swift in Sources */,
+				73AA074D225EE9B400FEEDC0 /* HeaderViewComponent.swift in Sources */,
 				33FEE07521E43C8400269F35 /* Post.swift in Sources */,
 				63E065762248355800C2402A /* LoginButtonViewBuilder.swift in Sources */,
 				6352296222100C9F00CADE35 /* DiscoverViewController.swift in Sources */,
