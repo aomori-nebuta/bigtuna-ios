@@ -11,30 +11,49 @@ import Alamofire
 import AlamofireImage
 import CoreLocation
 
-extension UIView {
+class BorderWrapper: UIView {
     enum ViewSide {
         case Left, Right, Top, Bottom
     }
+    private var border = CALayer();
+    private var viewSide = ViewSide.Bottom;
+    private var thicknessValue = CGFloat(0);
     
-    func addBorder(toSide side: ViewSide, withColor color: CGColor, andThickness thickness: CGFloat) {
+    convenience init(side: ViewSide, color: CGColor, thickness: CGFloat) {
+        self.init();
         
-        let border = CALayer();
-        //border.backgroundColor = color
-        border.borderColor = color;
+        viewSide = side;
+        border.backgroundColor = color;
+        thicknessValue = thickness;
+    }
+    
+    convenience init() {
+        self.init(frame: CGRect());
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame);
         
-        switch side {
-        case .Left: border.frame = CGRect(x: frame.minX, y: frame.minY, width: thickness, height: frame.height); break
-        case .Right: border.frame = CGRect(x: frame.maxX, y: frame.minY, width: thickness, height: frame.height); break
-        case .Top: border.frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: thickness); break
-        case .Bottom: border.frame = CGRect(x: frame.minX, y: frame.maxY, width: frame.width, height: thickness); break
+        setupView();
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("This class does not support NSCoding");
+    }
+    
+    func setupView() {
+        layer.addSublayer(border);
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        
+        switch viewSide {
+        case .Left: border.frame = CGRect(x: frame.minX, y: frame.minY, width: thicknessValue, height: frame.height); break
+        case .Right: border.frame = CGRect(x: frame.maxX, y: frame.minY, width: thicknessValue, height: frame.height); break
+        case .Top: border.frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: thicknessValue); break
+        case .Bottom: border.frame = CGRect(x: 0, y: frame.height, width: frame.width, height: thicknessValue); break
         }
-        
-        print("frame.minX: ", frame.minX);
-        print("frame.maxY: ", frame.maxY);
-        print("frame.width: ", frame.width);
-        
-        layer.addSublayer(border)
-        layer.masksToBounds = true;
     }
 }
 
@@ -57,6 +76,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     let ITEMS_PER_ROW: Int = 3;
     let INTER_ITEM_SPACING: Float = 2.5;
     let LINE_SPACING_FOR_SECTION: Float = 2.5;
+    let BORDER_THICKNESS: CGFloat = 1;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -274,12 +294,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         userFullNameView.font = userFullNameView.font.withSize(20); //TODO constants
         userFullNameView.textColor = .gray;
         userFullNameView.sizeToFit();
-        //userFullNameView.backgroundColor = .green; //debug
         userDescriptionView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21));
         userDescriptionView.font = userDescriptionView.font.withSize(16);
         userDescriptionView.textColor = .gray;
         userDescriptionView.sizeToFit();
-        //userDescriptionView.backgroundColor = .yellow; //debug
         userLocationView = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 21));
         userLocationView.textAlignment = .right;
         userLocationView.font = userLocationView.font.withSize(18); //TODO constants
@@ -295,28 +313,24 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.dataSource = self as UICollectionViewDataSource
         collectionView.delegate = self as UICollectionViewDelegate
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: profilePostCellIdentifer)
-        collectionView.backgroundColor = .white;
         
         let profileInfoStackView = UIStackView();
         profileInfoStackView.axis = .vertical;
         profileInfoStackView.distribution = .equalCentering;
         profileInfoStackView.alignment = .fill;
         
-        let profilePictureAndUserInfoStackView = UIStackView();
-        profilePictureAndUserInfoStackView.axis = .horizontal;
-        profilePictureAndUserInfoStackView.alignment = .center;
-        profilePictureAndUserInfoStackView.spacing = 15;
+        let profilePictureAndUserInfoView = UIView();
         
         let profileNameAndDescriptionView = UIStackView();
         profileNameAndDescriptionView.axis = .vertical;
         profileNameAndDescriptionView.distribution = .fillEqually;
-        profileNameAndDescriptionView.alignment = .fill;
+        profileNameAndDescriptionView.alignment = .center;
         profileNameAndDescriptionView.addArrangedSubview(userFullNameView);
         profileNameAndDescriptionView.addArrangedSubview(userDescriptionView);
         
         userProfileIconView = UIImageView();
-        profilePictureAndUserInfoStackView.addArrangedSubview(userProfileIconView);
-        profilePictureAndUserInfoStackView.addArrangedSubview(profileNameAndDescriptionView);
+        profilePictureAndUserInfoView.addSubview(userProfileIconView);
+        profilePictureAndUserInfoView.addSubview(profileNameAndDescriptionView);
         
         let locationAndPostView = UIStackView();
         locationAndPostView.axis = .horizontal;
@@ -326,33 +340,26 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         locationAndPostView.addArrangedSubview(userLocationView);
         locationAndPostView.addArrangedSubview(userPostCountView);
         
-        profileInfoStackView.addArrangedSubview(profilePictureAndUserInfoStackView);
+        profileInfoStackView.addArrangedSubview(profilePictureAndUserInfoView);
         profileInfoStackView.addArrangedSubview(locationAndPostView);
-        let profileInfoStackViewWrapper = UIView();
-        //profileInfoStackViewWrapper.addSubview(profileInfoStackView);
-        //profileInfoStackViewWrapper.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
-        
-        //todo, put mycollectionview and profileinfostackview into UIView containers and add borders to these containers instead
+        let profileInfoStackViewWrapper = BorderWrapper(side: .Bottom, color: UIColor.lightGray.cgColor, thickness: BORDER_THICKNESS);
+        profileInfoStackViewWrapper.addSubview(profileInfoStackView);
         
         primaryStackView = UIStackView(arrangedSubviews: [
-            profileInfoStackView,//profileInfoStackViewWrapper,
+            profileInfoStackViewWrapper,
             collectionView
-            //collectionViewWrapper
             ]);
-        
+        primaryStackView.spacing = BORDER_THICKNESS; //borders aren't factored into frame height, so we must set spacing
+
         view.addSubview(headerView);
         view.addSubview(primaryStackView);
-        
-        print("subview count: ", view.subviews.count);
-        print("headerview: ", headerView.frame);
         
         setViewProperties();
         headerView.applyViewProperties(view: view);
         
-        //TODO
-        userProfileIconView.contentMode = .scaleAspectFill;
-        userProfileIconView.widthAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.widthAnchor, multiplier: 0.25).isActive = true;
-        userProfileIconView.heightAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.heightAnchor, multiplier: 0.2).isActive = true;
+        userProfileIconView.contentMode = .scaleAspectFit;
+        userProfileIconView.heightAnchor.constraint(equalTo: profilePictureAndUserInfoView.heightAnchor).isActive = true;
+        userProfileIconView.widthAnchor.constraint(equalTo: profilePictureAndUserInfoView.heightAnchor).isActive = true;
     }
     
     func setViewProperties() {
@@ -368,28 +375,48 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         primaryStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         primaryStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false;
-        collectionView.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.75).isActive = true;
-        collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true;
-        collectionView.addBorder(toSide: .Bottom, withColor: UIColor.lightGray.cgColor, andThickness: 10.0);
+        let profileInfoStackViewWrapper = primaryStackView.subviews[0];
+        profileInfoStackViewWrapper.translatesAutoresizingMaskIntoConstraints = false;
+        profileInfoStackViewWrapper.topAnchor.constraint(equalTo: primaryStackView.topAnchor).isActive = true;
+        profileInfoStackViewWrapper.heightAnchor.constraint(equalTo: primaryStackView.heightAnchor, multiplier: 0.25).isActive = true;
+        profileInfoStackViewWrapper.leadingAnchor.constraint(equalTo: primaryStackView.leadingAnchor).isActive = true
+        profileInfoStackViewWrapper.trailingAnchor.constraint(equalTo: primaryStackView.trailingAnchor).isActive = true
         
-        let profileInfoStackView = primaryStackView.subviews[0];
+        
+        let profileInfoStackView = profileInfoStackViewWrapper.subviews[0];
         profileInfoStackView.translatesAutoresizingMaskIntoConstraints = false;
-        profileInfoStackView.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor, multiplier: 0.8).isActive = true;
+        profileInfoStackView.leadingAnchor.constraint(equalTo: profileInfoStackViewWrapper.leadingAnchor).isActive = true;
+        profileInfoStackView.trailingAnchor.constraint(equalTo: profileInfoStackViewWrapper.trailingAnchor).isActive = true;
+        profileInfoStackView.heightAnchor.constraint(equalTo: profileInfoStackViewWrapper.heightAnchor, multiplier: 0.75).isActive = true;
+        profileInfoStackView.centerYAnchor.constraint(equalTo: profileInfoStackViewWrapper.centerYAnchor).isActive = true;
         
-        let profilePictureAndUserInfoStackView = profileInfoStackView.subviews[0];
-        profilePictureAndUserInfoStackView.translatesAutoresizingMaskIntoConstraints = false;
-        let profileNameAndDescriptionView = profilePictureAndUserInfoStackView.subviews[0];
+        
+        let profilePictureAndUserInfoView = profileInfoStackView.subviews[0];
+        profilePictureAndUserInfoView.translatesAutoresizingMaskIntoConstraints = false;
+        profilePictureAndUserInfoView.widthAnchor.constraint(equalTo: profileInfoStackView.widthAnchor, multiplier: 0.8).isActive
+            = true;
+        profilePictureAndUserInfoView.heightAnchor.constraint(equalTo: profileInfoStackView.heightAnchor, multiplier: 0.75).isActive = true;
+        profilePictureAndUserInfoView.centerXAnchor.constraint(equalTo: profileInfoStackView.centerXAnchor).isActive = true;
+        
+        let profilePictureView = profilePictureAndUserInfoView.subviews[0];
+        profilePictureView.translatesAutoresizingMaskIntoConstraints = false;
+        
+        let profileNameAndDescriptionView = profilePictureAndUserInfoView.subviews[1];
         profileNameAndDescriptionView.translatesAutoresizingMaskIntoConstraints = false;
-        //profileNameAndDescriptionView.topAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.topAnchor).isActive = true;
-        //profileNameAndDescriptionView.bottomAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.bottomAnchor).isActive = true;
-        //profileNameAndDescriptionView.heightAnchor.constraint(equalTo: profilePictureAndUserInfoStackView.heightAnchor).isActive = true;
+        profileNameAndDescriptionView.leftAnchor.constraint(equalTo: profilePictureView.rightAnchor, constant: 10).isActive = true;
+ 
+        /* //TODO - add padding between username and description
+        let userNameAndDescription = profileNameAndDescriptionView.subviews[1];
+        let descriptionView = userNameAndDescription.subviews[1];
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false;
+        descriptionView.topAnchor.constraint(equalToSystemSpacingBelow: <#T##NSLayoutYAxisAnchor#>, multiplier: <#T##CGFloat#>)
+         */
         
-        let locationAndPostView = profileInfoStackView.subviews[1];
-        locationAndPostView.translatesAutoresizingMaskIntoConstraints = false;
-        locationAndPostView.heightAnchor.constraint(equalTo: profileInfoStackView.heightAnchor, multiplier: 0.3).isActive = true;
+        //TODO - add padding between location and posts count
         
-        //let userProfileIconView = profilePictureAndUserInfoStackView.subviews[0];//TODO constraints
+        let collectionView = primaryStackView.subviews[1];
+        collectionView.translatesAutoresizingMaskIntoConstraints = false;
+        collectionView.widthAnchor.constraint(equalTo: primaryStackView.widthAnchor).isActive = true;
     }
     
     /*

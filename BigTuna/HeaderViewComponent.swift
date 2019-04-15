@@ -27,6 +27,8 @@ class HeaderView: UIView {
     }
     
     private func setupView() {
+        backgroundColor = .white;
+        
         displayName = UILabel();
         displayName.textColor = .gray;
         displayName.font = displayName.font.withSize(24); //TODO constants
@@ -43,7 +45,7 @@ class HeaderView: UIView {
     
     func applyViewProperties(view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false;
-        heightAnchor.constraint(equalToConstant: 75).isActive = true;
+        heightAnchor.constraint(equalToConstant: 70).isActive = true;
         leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
