@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import BigTuna
+//@testable import BigTuna
 
 class BigTunaTests: XCTestCase {
 
